@@ -91,7 +91,7 @@
           <form @submit.prevent="handleSubmit" class="space-y-2 pt-0.5" novalidate>
             <!-- Full Name (Sign Up only) -->
             <div v-if="isSignUp" class="auth-field space-y-0.5">
-              <label for="fullName" class="text-[10px] font-semibold text-slate-400">
+              <label for="fullName" class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Full Name
               </label>
               <input
@@ -100,17 +100,17 @@
                 type="text"
                 required
                 autocomplete="name"
-                placeholder="Alex Morgan"
-                class="auth-input py-0.5 text-xs"
+                placeholder="e.g. Eleanor Vance"
+                class="auth-input py-1 text-xs"
               />
               <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
                 <span>Please enter your name.</span>
               </div>
             </div>
 
-            <!-- Email Field (Exact match from login.webp) -->
+            <!-- Email Field -->
             <div class="auth-field space-y-0.5">
-              <label for="email" class="text-[10px] font-semibold text-slate-400">
+              <label for="email" class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Email
               </label>
               <input
@@ -119,64 +119,66 @@
                 type="email"
                 required
                 autocomplete="email"
-                placeholder="bonjourguys@talk.com"
-                class="auth-input py-0.5 text-xs font-medium"
+                :placeholder="isSignUp ? 'you@example.com' : 'bonjourguys@talk.com'"
+                class="auth-input py-1 text-xs font-medium"
               />
               <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
                 <span>Please enter a valid email address.</span>
               </div>
             </div>
 
-            <!-- Password Fields: Side-by-side on tablet/desktop for Sign Up to minimize height -->
-            <div :class="[isSignUp ? 'grid grid-cols-1 sm:grid-cols-2 gap-2.5' : 'space-y-0.5']">
-              <!-- Password Field -->
-              <div class="auth-field space-y-0.5">
-                <div class="flex items-center justify-between">
-                  <label for="password" class="text-[10px] font-semibold text-slate-400">
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    @click="showPassword = !showPassword"
-                    class="text-[9px] text-slate-400 hover:text-indigo-600 transition-colors"
-                  >
-                    {{ showPassword ? 'Hide' : 'Show' }}
-                  </button>
-                </div>
-
-                <div class="relative">
-                  <input
-                    id="password"
-                    v-model="form.password"
-                    :type="showPassword ? 'text' : 'password'"
-                    required
-                    :autocomplete="isSignUp ? 'new-password' : 'current-password'"
-                    placeholder="••••••••"
-                    class="auth-input py-0.5 tracking-wider font-mono text-xs"
-                  />
-                </div>
-                <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
-                  <span>Min 6 characters.</span>
-                </div>
+            <!-- Password Field -->
+            <div class="auth-field space-y-0.5">
+              <div class="flex items-center justify-between">
+                <label for="password" class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  Password
+                </label>
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="text-[10px] font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer"
+                >
+                  {{ showPassword ? 'Hide' : 'Show' }}
+                </button>
               </div>
 
-              <!-- Confirm Password (Sign Up only) -->
-              <div v-if="isSignUp" class="auth-field space-y-0.5">
-                <label for="confirmPassword" class="text-[10px] font-semibold text-slate-400">
-                  Confirm Password
-                </label>
+              <div class="relative">
                 <input
-                  id="confirmPassword"
-                  v-model="form.confirmPassword"
+                  id="password"
+                  v-model="form.password"
                   :type="showPassword ? 'text' : 'password'"
                   required
-                  autocomplete="new-password"
-                  placeholder="••••••••"
-                  class="auth-input py-0.5 tracking-wider font-mono text-xs"
+                  minlength="6"
+                  :autocomplete="isSignUp ? 'new-password' : 'current-password'"
+                  :placeholder="isSignUp ? 'At least 6 characters' : '••••••••'"
+                  class="auth-input py-1 tracking-wider font-mono text-xs"
                 />
-                <div v-if="passwordMismatch" class="text-[9px] text-rose-500 flex items-center gap-1">
-                  <span>Passwords do not match.</span>
-                </div>
+              </div>
+              <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
+                <span>Min 6 characters.</span>
+              </div>
+            </div>
+
+            <!-- Confirm Password (Sign Up only) -->
+            <div v-if="isSignUp" class="auth-field space-y-0.5">
+              <label for="confirmPassword" class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                v-model="form.confirmPassword"
+                :type="showPassword ? 'text' : 'password'"
+                required
+                minlength="6"
+                autocomplete="new-password"
+                placeholder="Re-enter password"
+                class="auth-input py-1 tracking-wider font-mono text-xs"
+              />
+              <div v-if="passwordMismatch" class="text-[10px] text-rose-500 flex items-center gap-1 mt-0.5">
+                <span>✕ Passwords do not match</span>
+              </div>
+              <div v-else-if="passwordMatchSuccess" class="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-0.5 font-medium">
+                <span>✓ Passwords match</span>
               </div>
             </div>
 
@@ -186,7 +188,7 @@
                 <input
                   type="checkbox"
                   v-model="rememberMe"
-                  class="w-3 h-3 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
+                  class="w-3.5 h-3.5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600 cursor-pointer"
                 />
                 <span>Remember me</span>
               </label>
@@ -194,7 +196,7 @@
               <button
                 type="button"
                 @click="fillDemoCredentials"
-                class="text-[10px] font-semibold text-indigo-600 dark:text-purple-400 hover:text-indigo-800 dark:hover:text-purple-300 transition-colors"
+                class="text-[10px] font-semibold text-indigo-600 dark:text-purple-400 hover:text-indigo-800 dark:hover:text-purple-300 transition-colors cursor-pointer"
               >
                 Fill Demo
               </button>
@@ -202,14 +204,14 @@
 
             <!-- Terms agreement (Sign Up mode) -->
             <div v-if="isSignUp" class="pt-0.5">
-              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 dark:text-slate-400 select-none">
+              <label class="flex items-center gap-2 cursor-pointer text-[10px] text-slate-600 dark:text-slate-300 select-none">
                 <input
                   type="checkbox"
                   v-model="agreedTerms"
                   required
-                  class="w-3 h-3 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
+                  class="w-3.5 h-3.5 rounded text-purple-600 focus:ring-purple-500 border-slate-300 dark:border-purple-800 dark:bg-purple-950/60 accent-purple-600 cursor-pointer"
                 />
-                <span>I agree to Library Terms & Privacy</span>
+                <span>I agree to Library Terms & Privacy Policy</span>
               </label>
             </div>
 
@@ -218,7 +220,7 @@
               <button
                 type="submit"
                 :disabled="isLoading"
-                class="px-6 py-2 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:from-[#7E22CE] hover:to-[#9333EA] text-white font-bold text-xs uppercase tracking-wider shadow-sm shadow-purple-500/20 hover:shadow-purple-500/35 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-60"
+                class="w-full sm:w-auto px-7 py-2.5 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:from-[#7E22CE] hover:to-[#9333EA] text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-60 cursor-pointer"
               >
                 <svg
                   v-if="isLoading"
@@ -236,13 +238,13 @@
         </div>
 
         <!-- Bottom Link (Exact match: Dont have an account? Sign up) -->
-        <div class="pt-2 text-[10px] text-slate-400 dark:text-slate-400">
+        <div class="pt-2 text-[10px] text-slate-500 dark:text-slate-400">
           <span v-if="!isSignUp">
             Dont have an account?
             <button
               type="button"
               @click="setMode(true)"
-              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors"
+              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors cursor-pointer"
             >
               Sign up
             </button>
@@ -252,7 +254,7 @@
             <button
               type="button"
               @click="setMode(false)"
-              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors"
+              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors cursor-pointer"
             >
               Log in
             </button>
@@ -319,8 +321,8 @@ const errorMessage = ref('')
 
 const form = reactive({
   name: '',
-  email: 'bonjourguys@talk.com',
-  password: '••••••••',
+  email: props.initialMode === 'signup' ? '' : 'bonjourguys@talk.com',
+  password: props.initialMode === 'signup' ? '' : '••••••••',
   confirmPassword: ''
 })
 
@@ -328,10 +330,28 @@ const passwordMismatch = computed(() => {
   return isSignUp.value && form.confirmPassword.length > 0 && form.password !== form.confirmPassword
 })
 
+const passwordMatchSuccess = computed(() => {
+  return isSignUp.value && form.confirmPassword.length >= 6 && form.password === form.confirmPassword
+})
+
 const setMode = (signUp: boolean) => {
   isSignUp.value = signUp
   errorMessage.value = ''
   emit('mode-changed', signUp ? 'signup' : 'login')
+
+  if (signUp) {
+    if (form.email === 'bonjourguys@talk.com') form.email = ''
+    if (form.password === '••••••••' || form.password === 'inspace2026') form.password = ''
+    if (typeof window !== 'undefined' && window.location.pathname === '/login') {
+      navigateTo('/signup')
+    }
+  } else {
+    if (!form.email) form.email = 'bonjourguys@talk.com'
+    if (!form.password) form.password = '••••••••'
+    if (typeof window !== 'undefined' && window.location.pathname === '/signup') {
+      navigateTo('/login')
+    }
+  }
 }
 
 const fillDemoCredentials = () => {
@@ -343,14 +363,36 @@ const fillDemoCredentials = () => {
 const handleSubmit = async () => {
   errorMessage.value = ''
 
-  if (isSignUp.value && passwordMismatch.value) {
-    errorMessage.value = 'Passwords do not match.'
-    return
-  }
-
-  if (isSignUp.value && !agreedTerms.value) {
-    errorMessage.value = 'Please accept the Library Terms & Privacy Policy to continue.'
-    return
+  if (isSignUp.value) {
+    if (!form.name.trim()) {
+      errorMessage.value = 'Please enter your full name.'
+      return
+    }
+    if (!form.email.trim()) {
+      errorMessage.value = 'Please enter your email address.'
+      return
+    }
+    if (!form.password || form.password.length < 6) {
+      errorMessage.value = 'Password must be at least 6 characters.'
+      return
+    }
+    if (form.password !== form.confirmPassword) {
+      errorMessage.value = 'Passwords do not match.'
+      return
+    }
+    if (!agreedTerms.value) {
+      errorMessage.value = 'Please agree to the Library Terms & Privacy Policy to continue.'
+      return
+    }
+  } else {
+    if (!form.email.trim()) {
+      errorMessage.value = 'Please enter your email.'
+      return
+    }
+    if (!form.password) {
+      errorMessage.value = 'Please enter your password.'
+      return
+    }
   }
 
   isLoading.value = true
@@ -358,9 +400,9 @@ const handleSubmit = async () => {
   try {
     let user
     if (isSignUp.value) {
-      user = await signup(form.name, form.email, form.password)
+      user = await signup(form.name.trim(), form.email.trim(), form.password)
     } else {
-      user = await login(form.email, form.password === '••••••••' ? 'inspace2026' : form.password)
+      user = await login(form.email.trim(), form.password === '••••••••' ? 'inspace2026' : form.password)
     }
 
     emit('success', user)

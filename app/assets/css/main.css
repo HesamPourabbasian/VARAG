@@ -188,6 +188,16 @@
   box-shadow: 0 1px 0 0 #A855F7;
 }
 
+.auth-input::placeholder {
+  color: #94A3B8;
+  opacity: 0.85;
+}
+
+.dark .auth-input::placeholder {
+  color: #64748B;
+  opacity: 0.85;
+}
+
 .dark dialog::backdrop {
   background: rgba(10, 8, 20, 0.75);
 }
