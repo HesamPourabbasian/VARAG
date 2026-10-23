@@ -82,13 +82,6 @@
         </div>
       </div>
 
-      <!-- Floating Badge (Top Right Corner) -->
-      <div class="absolute top-4 right-4 sm:top-6 sm:right-8 z-20 hidden sm:flex items-center gap-2">
-        <div class="px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-semibold text-purple-200 shadow-md">
-          <span>✨ Hand-Painted Cel & Gouache Art</span>
-        </div>
-      </div>
-
       <!-- Foreground Content: ALL intro texts directly on the full-width background illustration -->
       <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 py-16 sm:py-20 md:py-24 space-y-6">
         <!-- Main Title -->
