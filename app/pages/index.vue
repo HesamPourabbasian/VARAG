@@ -74,14 +74,6 @@
       <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-900/60 to-slate-950/90 pointer-events-none" />
       <div class="absolute inset-0 bg-indigo-950/25 mix-blend-multiply pointer-events-none" />
 
-      <!-- Floating 80s Anime Badge (Top Left Corner) -->
-      <div class="absolute top-4 left-4 sm:top-6 sm:left-8 z-20 flex items-center gap-2">
-        <div class="px-3.5 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-bold text-amber-300 flex items-center gap-1.5 shadow-md">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>1980s Anime Edition • ヴァラグ 昭和アニメ</span>
-        </div>
-      </div>
-
       <!-- Foreground Content: ALL intro texts directly on the full-width background illustration -->
       <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 py-16 sm:py-20 md:py-24 space-y-6">
         <!-- Main Title -->
