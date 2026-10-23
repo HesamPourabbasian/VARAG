@@ -60,111 +60,109 @@
       </div>
     </header>
 
-    <!-- Hero Intro Section with 80s Japanese Anime Background Image -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-12 sm:pb-20">
-      <div class="relative w-full rounded-3xl md:rounded-[44px] overflow-hidden border border-white/80 dark:border-purple-900/50 shadow-2xl shadow-indigo-950/20 text-center p-6 sm:p-12 md:p-16 lg:p-20 text-white min-h-[560px] md:min-h-[620px] flex flex-col justify-center items-center group">
-        <!-- 80s Japanese Anime Background Image -->
-        <img
-          src="/hero-anime.webp"
-          alt="1980s Retro Japanese Anime Library Background"
-          class="absolute inset-0 w-full h-full object-cover object-center transform scale-105 filter brightness-[0.78] contrast-[1.08] pointer-events-none select-none transition-transform duration-1000 ease-out group-hover:scale-110"
-          loading="eager"
-        />
+    <!-- Hero Intro Section with 80s Japanese Anime Background Image (100% Full Width) -->
+    <section class="relative w-full overflow-hidden text-center text-white min-h-[580px] md:min-h-[640px] lg:min-h-[700px] flex flex-col justify-center items-center shadow-2xl group border-b border-indigo-100/30 dark:border-purple-900/40">
+      <!-- 80s Japanese Anime Background Image spanning 100% full width -->
+      <img
+        src="/hero-anime.webp"
+        alt="1980s Retro Japanese Anime Library Background"
+        class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08] pointer-events-none select-none transition-transform duration-1000 ease-out group-hover:scale-105"
+        loading="eager"
+      />
 
-        <!-- Multi-layer contrast and gradient overlays for text readability -->
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/55 to-slate-950/85 pointer-events-none" />
-        <div class="absolute inset-0 bg-indigo-950/25 mix-blend-multiply pointer-events-none" />
+      <!-- Multi-layer contrast and gradient overlays for text readability -->
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-900/60 to-slate-950/90 pointer-events-none" />
+      <div class="absolute inset-0 bg-indigo-950/25 mix-blend-multiply pointer-events-none" />
 
-        <!-- Floating 80s Anime Badge (Top Left Corner) -->
-        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 flex items-center gap-2">
-          <div class="px-3.5 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-bold text-amber-300 flex items-center gap-1.5 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            <span>1980s Anime Edition • ヴァラグ 昭和アニメ</span>
-          </div>
+      <!-- Floating 80s Anime Badge (Top Left Corner) -->
+      <div class="absolute top-4 left-4 sm:top-6 sm:left-8 z-20 flex items-center gap-2">
+        <div class="px-3.5 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-bold text-amber-300 flex items-center gap-1.5 shadow-md">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>1980s Anime Edition • ヴァラグ 昭和アニメ</span>
+        </div>
+      </div>
+
+      <!-- Floating Badge (Top Right Corner) -->
+      <div class="absolute top-4 right-4 sm:top-6 sm:right-8 z-20 hidden sm:flex items-center gap-2">
+        <div class="px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-semibold text-purple-200 shadow-md">
+          <span>✨ Hand-Painted Cel & Gouache Art</span>
+        </div>
+      </div>
+
+      <!-- Foreground Content: ALL intro texts directly on the full-width background illustration -->
+      <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 py-16 sm:py-20 md:py-24 space-y-6">
+        <!-- Intro Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-xs font-bold text-white mb-1">
+          <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span>Introducing VARAG Digital Library</span>
+          <span class="text-white/40">•</span>
+          <span class="text-amber-200 font-normal">کتابخانه دیجیتال ورق</span>
         </div>
 
-        <!-- Floating Badge (Top Right Corner) -->
-        <div class="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 hidden sm:flex items-center gap-2">
-          <div class="px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-semibold text-purple-200 shadow-md">
-            <span>✨ Hand-Painted Cel & Gouache Art</span>
-          </div>
+        <!-- Main Title -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]">
+          Where Every Story Begins With
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-indigo-200">
+            Curiosity & Wonder
+          </span>
+        </h1>
+
+        <!-- Intro Paragraph -->
+        <p class="text-sm sm:text-base md:text-lg text-slate-100 font-normal leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+          Step through the digital looking glass into our nostalgic 80s anime reading sanctuary. Explore an ever-expanding library vault of PDFs and EPUBs, upload your own beloved volumes, and immerse yourself in reading adventures.
+        </p>
+
+        <!-- Primary Action Buttons in Hero -->
+        <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
+          <!-- SPECIFIC MAIN ENTRY BUTTON -->
+          <NuxtLink
+            to="/library"
+            class="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white font-extrabold text-sm shadow-xl shadow-purple-500/40 hover:shadow-purple-500/60 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2.5"
+          >
+            <span>Enter VARAG Library Portal</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </NuxtLink>
+
+          <button
+            type="button"
+            @click="scrollToChapter('portal')"
+            class="px-6 py-3.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-bold text-sm border border-white/30 shadow-md transition-all duration-200 flex items-center gap-2"
+          >
+            <span>Explore Chapters</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
 
-        <!-- Foreground Content: ALL intro texts directly on the background illustration -->
-        <div class="relative z-10 max-w-4xl mx-auto space-y-6 pt-6 sm:pt-4">
-          <!-- Intro Pill Badge -->
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-xs font-bold text-white mb-1">
-            <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
-            <span>Introducing VARAG Digital Library</span>
-            <span class="text-white/40">•</span>
-            <span class="text-amber-200 font-normal">کتابخانه دیجیتال ورق</span>
+        <!-- Feature Pill Badges directly in the hero container -->
+        <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pt-4 text-xs">
+          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-semibold text-slate-200">Universal PDF & EPUB Ingestion</span>
           </div>
-
-          <!-- Main Title -->
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]">
-            Where Every Story Begins With
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-indigo-200">
-              Curiosity & Wonder
-            </span>
-          </h1>
-
-          <!-- Intro Paragraph -->
-          <p class="text-sm sm:text-base md:text-lg text-slate-100 font-normal leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-            Step through the digital looking glass into our nostalgic 80s anime reading sanctuary. Explore an ever-expanding library vault of PDFs and EPUBs, upload your own beloved volumes, and immerse yourself in reading adventures.
-          </p>
-
-          <!-- Primary Action Buttons in Hero -->
-          <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
-            <!-- SPECIFIC MAIN ENTRY BUTTON -->
-            <NuxtLink
-              to="/library"
-              class="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white font-extrabold text-sm shadow-xl shadow-purple-500/40 hover:shadow-purple-500/60 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2.5"
-            >
-              <span>Enter VARAG Library Portal</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </NuxtLink>
-
-            <button
-              type="button"
-              @click="scrollToChapter('portal')"
-              class="px-6 py-3.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-bold text-sm border border-white/30 shadow-md transition-all duration-200 flex items-center gap-2"
-            >
-              <span>Explore Chapters</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-semibold text-slate-200">1980s Retro Anime Library</span>
           </div>
-
-          <!-- Feature Pill Badges directly in the hero container -->
-          <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pt-4 text-xs">
-            <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="font-semibold text-slate-200">Universal PDF & EPUB Ingestion</span>
-            </div>
-            <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-              <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="font-semibold text-slate-200">1980s Retro Anime Library</span>
-            </div>
-            <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-              <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="font-semibold text-slate-200">Offline Synced Reading Vault</span>
-            </div>
+          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
+            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-semibold text-slate-200">Offline Synced Reading Vault</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- PARALLEL STORYTELLING SECTIONS (Chapters 1, 2, 3) -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-8 space-y-20 sm:space-y-32 pb-24">
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 space-y-20 sm:space-y-32 pt-16 sm:pt-20 pb-24">
       
       <!-- CHAPTER 1: The Gateway to Wonder (page3.webp) -->
       <section id="portal" class="scroll-mt-24">
