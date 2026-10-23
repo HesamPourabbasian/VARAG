@@ -105,47 +105,63 @@
         </button>
       </div>
 
-      <!-- Cute Hero Mascot Illustration Card (White Rabbit Librarian) -->
-      <div class="pt-6 sm:pt-8 max-w-3xl mx-auto">
-        <div class="relative group">
+      <!-- 80s Retro Japanese Anime Panoramic Hero Showcase (Full Width of Section) -->
+      <div class="pt-6 sm:pt-10 w-full">
+        <div class="relative group w-full">
           <!-- Ambient glowing backdrop aura -->
-          <div class="absolute -inset-2 bg-gradient-to-r from-purple-500/25 via-indigo-500/25 to-pink-500/25 rounded-[36px] blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <div class="absolute -inset-2 bg-gradient-to-r from-amber-500/20 via-purple-600/25 to-pink-500/20 rounded-[36px] md:rounded-[48px] blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-          <!-- Main Card Container -->
-          <div class="relative rounded-3xl md:rounded-[36px] overflow-hidden bg-white/70 dark:bg-[#16122B]/80 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-2xl p-3 sm:p-5 transition-transform duration-500 group-hover:scale-[1.01]">
-            <div class="relative rounded-2xl md:rounded-[28px] overflow-hidden bg-gradient-to-b from-indigo-50/50 to-purple-50/30 dark:from-[#20183E]/60 dark:to-[#171131]/60">
+          <!-- Full Width Cinema Container -->
+          <div class="relative w-full rounded-3xl md:rounded-[44px] overflow-hidden bg-white/80 dark:bg-[#16122B]/90 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-2xl p-2 sm:p-4 transition-all duration-500 group-hover:shadow-indigo-500/15">
+            <div class="relative w-full h-72 sm:h-96 md:h-[480px] lg:h-[540px] rounded-2xl md:rounded-[36px] overflow-hidden bg-slate-900">
+              <!-- 80s Japanese Anime Panoramic Artwork -->
               <img
-                src="/hero-rabbit.webp"
-                alt="Cute White Rabbit Librarian reading a glowing magical book in VARAG library"
-                class="w-full max-h-[420px] object-cover sm:object-contain mx-auto transform group-hover:scale-105 transition-transform duration-700 ease-out drop-shadow-xl"
+                src="/hero-anime.webp"
+                alt="1980s Retro Japanese Anime cozy library with girl scholar, fluffy bunny familiar, and glowing floating pages (ورق)"
+                class="w-full h-full object-cover object-center transform group-hover:scale-[1.03] transition-transform duration-1000 ease-out"
+                loading="eager"
               />
 
-              <!-- Floating Cute Pill Badges on the Illustration -->
-              <!-- Top-Left Mascot Badge -->
-              <div class="absolute top-3 left-3 sm:top-5 sm:left-5 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-md text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <span class="text-base">🐰</span>
-                <span>White Rabbit • Chief Librarian</span>
-              </div>
-
-              <!-- Top-Right Magical Aura Badge -->
-              <div class="absolute top-3 right-3 sm:top-5 sm:right-5 px-3 py-1.5 rounded-full bg-amber-50/90 dark:bg-amber-950/80 backdrop-blur-md border border-amber-200/80 dark:border-amber-800/50 shadow-md text-[11px] font-bold text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                <span>Enchanted Reading</span>
-              </div>
-
-              <!-- Bottom Center Interactive Caption -->
-              <div class="absolute bottom-3 inset-x-3 sm:bottom-5 sm:inset-x-8 flex items-center justify-between px-4 py-2.5 rounded-2xl bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-lg text-xs">
-                <div class="text-left">
-                  <p class="font-extrabold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Every Page (ورق) Holds a Universe</p>
-                  <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Explore thousands of digital PDFs & EPUBs in our whimsical vault</p>
+              <!-- Cinematic 80s Anime Top Bar Overlay -->
+              <div class="absolute top-3 left-3 right-3 sm:top-6 sm:left-6 sm:right-6 flex items-center justify-between gap-3 pointer-events-none">
+                <!-- Retro Anime Badge -->
+                <div class="pointer-events-auto px-3.5 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/20 text-white text-[11px] font-bold tracking-wider flex items-center gap-2 shadow-lg">
+                  <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                  <span class="uppercase">1980s Anime Aesthetics</span>
+                  <span class="text-white/40">•</span>
+                  <span class="font-normal text-amber-200">ヴァラグ • 魔法の図書館</span>
                 </div>
+
+                <!-- Nostalgic Cel Animation Pill -->
+                <div class="pointer-events-auto hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/85 backdrop-blur-md border border-white/40 dark:border-purple-900/50 text-slate-800 dark:text-purple-200 text-xs font-semibold shadow-md">
+                  <span>✨ Hand-Painted Gouache & Cel Art</span>
+                </div>
+              </div>
+
+              <!-- Cinematic Bottom Gradient & Title Overlay -->
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-transparent p-5 sm:p-8 md:p-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 text-left">
+                <div class="space-y-1.5 max-w-xl">
+                  <div class="inline-flex items-center gap-2 text-[11px] font-bold text-amber-300 uppercase tracking-widest">
+                    <span>昭和アニメ美学</span>
+                    <span>•</span>
+                    <span>The Enchanted Archive</span>
+                  </div>
+                  <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+                    Where Every Page is a Magical Memory
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed line-clamp-2 sm:line-clamp-none drop-shadow-sm">
+                    Immerse yourself in nostalgic warmth. Browse vintage manuscripts, modern EPUB volumes, and upload your personal collection to your infinite reading vault.
+                  </p>
+                </div>
+
+                <!-- Interactive CTA Button -->
                 <NuxtLink
                   to="/library"
-                  class="px-3.5 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm hover:scale-105 transition-all flex items-center gap-1.5 flex-shrink-0"
+                  class="group/btn px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 hover:from-amber-300 hover:via-orange-400 hover:to-pink-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 flex-shrink-0"
                 >
-                  <span>Read Now</span>
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                  <span>Enter the Vault</span>
+                  <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </NuxtLink>
               </div>
