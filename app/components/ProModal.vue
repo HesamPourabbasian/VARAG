@@ -3,7 +3,7 @@
     ref="dialogRef"
     closedby="any"
     aria-labelledby="proModalTitle"
-    class="p-0 rounded-3xl bg-white shadow-2xl border border-slate-100 max-w-lg w-[92vw] text-slate-800 m-auto backdrop:bg-slate-900/60 transition-all duration-200"
+    class="p-0 rounded-3xl bg-white dark:bg-[#16122B] shadow-2xl border border-slate-100 dark:border-purple-900/40 max-w-lg w-[92vw] text-slate-800 dark:text-slate-100 m-auto backdrop:bg-slate-900/60 transition-all duration-200"
   >
     <div class="p-6 sm:p-8 space-y-6 text-center">
       <!-- Pro Badge Icon -->
@@ -14,30 +14,30 @@
       </div>
 
       <div class="space-y-1.5">
-        <h2 id="proModalTitle" class="text-xl font-extrabold text-slate-900 tracking-tight">
+        <h2 id="proModalTitle" class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           VARAG Pro Library Pass
         </h2>
-        <p class="text-xs text-slate-500 max-w-sm mx-auto">
+        <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
           Unlock unlimited cloud storage, real-time EPUB sync, and advanced AI document indexing.
         </p>
       </div>
 
       <!-- Features Checklist -->
-      <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/60 text-left space-y-2.5 text-xs text-slate-700">
+      <div class="p-4 rounded-2xl bg-indigo-50/50 dark:bg-purple-950/40 border border-indigo-100/60 dark:border-purple-900/50 text-left space-y-2.5 text-xs text-slate-700 dark:text-slate-200">
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-indigo-600 dark:text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
           <span>Unlimited PDF and EPUB library storage</span>
         </div>
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-indigo-600 dark:text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
           <span>AI Semantic Search across entire book texts</span>
         </div>
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-indigo-600 dark:text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
           <span>Offline sync with native e-reader devices</span>
@@ -48,7 +48,7 @@
         <button
           type="button"
           @click="closeModal"
-          class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+          class="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-purple-900/60 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#1E173D]"
         >
           Maybe Later
         </button>

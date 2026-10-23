@@ -1,37 +1,47 @@
 <template>
-  <div class="min-h-screen bg-[#F4F1FD] text-slate-800 font-sans selection:bg-indigo-600 selection:text-white relative overflow-x-hidden">
+  <div class="min-h-screen bg-[#F4F1FD] dark:bg-[#0C091C] text-slate-800 dark:text-slate-100 font-sans selection:bg-indigo-600 selection:text-white relative overflow-x-hidden transition-colors duration-300">
     
     <!-- Ambient Floating Background Blobs -->
     <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none" aria-hidden="true">
-      <div class="absolute -top-32 -left-32 w-[34rem] h-[34rem] bg-purple-300/35 rounded-full blur-3xl animate-pulse-glow" />
-      <div class="absolute top-1/3 -right-36 w-[38rem] h-[38rem] bg-indigo-200/40 rounded-full blur-3xl" />
-      <div class="absolute top-2/3 -left-28 w-[32rem] h-[32rem] bg-pink-200/30 rounded-full blur-3xl" />
-      <div class="absolute -bottom-32 right-1/4 w-[36rem] h-[36rem] bg-purple-200/35 rounded-full blur-3xl" />
+      <div class="absolute -top-32 -left-32 w-[34rem] h-[34rem] bg-purple-300/35 dark:bg-purple-900/25 rounded-full blur-3xl animate-pulse-glow" />
+      <div class="absolute top-1/3 -right-36 w-[38rem] h-[38rem] bg-indigo-200/40 dark:bg-indigo-950/30 rounded-full blur-3xl" />
+      <div class="absolute top-2/3 -left-28 w-[32rem] h-[32rem] bg-pink-200/30 dark:bg-pink-950/20 rounded-full blur-3xl" />
+      <div class="absolute -bottom-32 right-1/4 w-[36rem] h-[36rem] bg-purple-200/35 dark:bg-purple-900/25 rounded-full blur-3xl" />
     </div>
 
     <!-- Sticky Navigation Header -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-indigo-50/80 px-4 sm:px-8 py-3.5 transition-all shadow-sm">
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-[#16122B]/85 border-b border-indigo-50/80 dark:border-purple-900/40 px-4 sm:px-8 py-3.5 transition-all shadow-sm">
       <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         <!-- Brand Logo & Title -->
         <NuxtLink to="/" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-xl bg-white shadow-md shadow-indigo-500/15 border border-indigo-100 flex items-center justify-center overflow-hidden p-0.5 group-hover:scale-105 transition-transform">
+          <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 shadow-md shadow-indigo-500/15 border border-indigo-100 dark:border-purple-900/50 flex items-center justify-center overflow-hidden p-0.5 group-hover:scale-105 transition-transform">
             <img src="/logo.png" alt="VARAG" class="w-full h-full object-contain rounded-lg" />
           </div>
           <div>
             <div class="flex items-center gap-1.5">
-              <span class="text-xl font-black text-slate-900 tracking-tight">VARAG</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-indigo-50 text-indigo-600 border border-indigo-100">ورق</span>
+              <span class="text-xl font-black text-slate-900 dark:text-white tracking-tight">VARAG</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-indigo-50 dark:bg-purple-900/40 text-indigo-600 dark:text-purple-300 border border-indigo-100 dark:border-purple-800/40">ورق</span>
             </div>
-            <p class="text-[11px] text-slate-400 font-medium">Digital Book Vault & Hub</p>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500 font-medium">Digital Book Vault & Hub</p>
           </div>
         </NuxtLink>
 
-        <!-- Action CTA Buttons (SPECIFIC BUTTON TO ENTER LANDING PAGE) -->
+        <!-- Action CTA Buttons (SPECIFIC BUTTON TO ENTER LANDING PAGE + DARK MODE TOGGLE) -->
         <div class="flex items-center gap-2.5">
+          <!-- Theme Toggle -->
+          <button
+            @click="toggleTheme"
+            class="p-2 text-slate-500 dark:text-amber-300 hover:text-indigo-600 dark:hover:text-amber-200 rounded-full hover:bg-slate-100 dark:hover:bg-purple-900/40 transition-colors"
+            :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+            :aria-label="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          >
+            <component :is="isDark ? Sun : Moon" class="w-5 h-5 transition-transform duration-300 hover:rotate-12" />
+          </button>
+
           <NuxtLink
             to="/login"
-            class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 transition-colors"
+            class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-purple-300 hover:bg-indigo-50/60 dark:hover:bg-purple-900/40 transition-colors"
           >
             Log In
           </NuxtLink>
@@ -52,21 +62,21 @@
 
     <!-- Hero Intro Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-20 text-center space-y-6">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-indigo-100 shadow-sm text-xs font-semibold text-indigo-700 mb-2">
-        <span class="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse"></span>
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-[#1C1738] border border-indigo-100 dark:border-purple-900/40 shadow-sm text-xs font-semibold text-indigo-700 dark:text-purple-300 mb-2">
+        <span class="flex h-2 w-2 rounded-full bg-indigo-600 dark:bg-purple-400 animate-pulse"></span>
         <span>Introducing VARAG Digital Library</span>
-        <span class="text-slate-300">•</span>
-        <span class="text-slate-500 font-normal">کتابخانه دیجیتال ورق</span>
+        <span class="text-slate-300 dark:text-slate-600">•</span>
+        <span class="text-slate-500 dark:text-slate-400 font-normal">کتابخانه دیجیتال ورق</span>
       </div>
 
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-[1.15]">
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight max-w-4xl mx-auto leading-[1.15]">
         Where Every Story Begins With
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
           Curiosity & Wonder
         </span>
       </h1>
 
-      <p class="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+      <p class="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
         Step through the digital looking glass. Explore an ever-expanding library vault of PDFs and EPUBs, upload your own beloved volumes, and immerse yourself in reading adventures.
       </p>
 
@@ -86,7 +96,7 @@
         <button
           type="button"
           @click="scrollToChapter('portal')"
-          class="px-6 py-3.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-indigo-600 font-bold text-sm border border-slate-200/80 shadow-sm transition-all duration-200 flex items-center gap-2"
+          class="px-6 py-3.5 rounded-full bg-white/90 dark:bg-[#1E173D] hover:bg-white dark:hover:bg-[#251D4D] text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-purple-300 font-bold text-sm border border-slate-200/80 dark:border-purple-900/50 shadow-sm transition-all duration-200 flex items-center gap-2"
         >
           <span>Explore Chapters</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,24 +106,24 @@
       </div>
 
       <!-- Feature Pill Badges -->
-      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 pt-6 text-xs text-slate-500">
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 pt-6 text-xs text-slate-500 dark:text-slate-400">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-[#1C1738] border border-slate-100 dark:border-purple-900/40 shadow-sm">
           <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
-          <span class="font-semibold text-slate-700">Universal PDF & EPUB Ingestion</span>
+          <span class="font-semibold text-slate-700 dark:text-slate-200">Universal PDF & EPUB Ingestion</span>
         </div>
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-[#1C1738] border border-slate-100 dark:border-purple-900/40 shadow-sm">
           <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
-          <span class="font-semibold text-slate-700">3D Illustrated Book Art</span>
+          <span class="font-semibold text-slate-700 dark:text-slate-200">3D Illustrated Book Art</span>
         </div>
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-[#1C1738] border border-slate-100 dark:border-purple-900/40 shadow-sm">
           <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
           </svg>
-          <span class="font-semibold text-slate-700">Offline Synced Reading Vault</span>
+          <span class="font-semibold text-slate-700 dark:text-slate-200">Offline Synced Reading Vault</span>
         </div>
       </div>
     </section>
@@ -123,29 +133,29 @@
       
       <!-- CHAPTER 1: The Gateway to Wonder (page3.webp) -->
       <section id="portal" class="scroll-mt-24">
-        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+        <div class="bg-white/90 dark:bg-[#16122B] rounded-3xl md:rounded-[40px] border border-white/80 dark:border-purple-900/40 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] dark:shadow-2xl dark:shadow-purple-950/40 p-6 sm:p-10 md:p-14 overflow-hidden transition-colors">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Parallel Text Column (Left) -->
             <div class="lg:col-span-5 space-y-5">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold tracking-wider uppercase">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50 text-xs font-bold tracking-wider uppercase">
                 <span>Chapter 01</span>
                 <span>•</span>
                 <span>The Portal</span>
               </div>
 
-              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Step Through the Portal of Curiosity
               </h2>
 
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 Every profound reading journey begins with an unexpected doorway. Like following the hurried rabbit into the glowing hollow of the ancient tree, VARAG opens a secret portal into a treasury of ideas, knowledge, and imagination.
               </p>
 
               <!-- Feature Highlights Checklist -->
-              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -153,7 +163,7 @@
                   <span>Instant portal access to thousands of curated digital publications.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -161,7 +171,7 @@
                   <span>High-speed semantic search across titles, authors, and genres.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -174,14 +184,14 @@
               <div class="pt-4 flex items-center gap-3">
                 <NuxtLink
                   to="/library"
-                  class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 group"
+                  class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-indigo-600 dark:bg-purple-600 dark:hover:bg-purple-500 text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 group"
                 >
                   <span>Explore the Portal</span>
                   <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </NuxtLink>
-                <span class="text-xs text-slate-400">Direct to catalog</span>
+                <span class="text-xs text-slate-400 dark:text-slate-500">Direct to catalog</span>
               </div>
             </div>
 
@@ -190,7 +200,7 @@
               <!-- Glow backdrop effect -->
               <div class="absolute -inset-2 bg-gradient-to-r from-amber-400/20 to-indigo-500/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
               
-              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-amber-50/30">
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-purple-900/50 bg-amber-50/30 dark:bg-amber-950/20">
                 <img
                   src="/page3.webp"
                   alt="Alice and the White Rabbit at the Glowing Tree Portal"
@@ -198,7 +208,7 @@
                 />
 
                 <!-- Floating Badge Overlay -->
-                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-lg text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2.5">
                   <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
                   <span>Curiosity Unlocked • Follow the White Rabbit</span>
                 </div>
@@ -211,7 +221,7 @@
 
       <!-- CHAPTER 2: The Vortex of Leaves & Books (page2.webp) -->
       <section id="vortex" class="scroll-mt-24">
-        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+        <div class="bg-white/90 dark:bg-[#16122B] rounded-3xl md:rounded-[40px] border border-white/80 dark:border-purple-900/40 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] dark:shadow-2xl dark:shadow-purple-950/40 p-6 sm:p-10 md:p-14 overflow-hidden transition-colors">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Parallel Image Column (Left on Desktop - page2.webp) -->
@@ -219,7 +229,7 @@
               <!-- Glow backdrop effect -->
               <div class="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
               
-              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-indigo-950/20">
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-purple-900/50 bg-indigo-950/20">
                 <img
                   src="/page2.webp"
                   alt="Alice tumbling down the vortex of flying book pages, keys, and clocks"
@@ -227,7 +237,7 @@
                 />
 
                 <!-- Floating Badge Overlay -->
-                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-lg text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2.5">
                   <span class="text-base">📖</span>
                   <span>The Infinite Vault • Every Page (ورق) Preserved</span>
                 </div>
@@ -236,24 +246,24 @@
 
             <!-- Parallel Text Column (Right on Desktop) -->
             <div class="lg:col-span-5 space-y-5 order-1 lg:order-2">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-bold tracking-wider uppercase">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50 text-xs font-bold tracking-wider uppercase">
                 <span>Chapter 02</span>
                 <span>•</span>
                 <span>The Vortex Vault</span>
               </div>
 
-              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Falling into an Endless Sea of Knowledge
               </h2>
 
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 In Persian, <em>VARAG (ورق)</em> is the living leaf of a book—the physical spark of a written thought. As Alice tumbles through flying manuscripts and floating golden keys, VARAG catches and cradles every volume you upload into permanent digital sanctuary.
               </p>
 
               <!-- Feature Highlights Checklist -->
-              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -261,7 +271,7 @@
                   <span>Universal file drag-and-drop for both PDF and EPUB digital formats.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -269,7 +279,7 @@
                   <span>Automated metadata extraction, file size calculation, and cover palette.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -289,7 +299,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </NuxtLink>
-                <span class="text-xs text-slate-400">PDF & EPUB ready</span>
+                <span class="text-xs text-slate-400 dark:text-slate-500">PDF & EPUB ready</span>
               </div>
             </div>
 
@@ -299,29 +309,29 @@
 
       <!-- CHAPTER 3: The Feast of Shared Stories (page1.webp) -->
       <section id="gathering" class="scroll-mt-24">
-        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+        <div class="bg-white/90 dark:bg-[#16122B] rounded-3xl md:rounded-[40px] border border-white/80 dark:border-purple-900/40 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] dark:shadow-2xl dark:shadow-purple-950/40 p-6 sm:p-10 md:p-14 overflow-hidden transition-colors">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Parallel Text Column (Left) -->
             <div class="lg:col-span-5 space-y-5">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold tracking-wider uppercase">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 text-xs font-bold tracking-wider uppercase">
                 <span>Chapter 03</span>
                 <span>•</span>
                 <span>The Community Banquet</span>
               </div>
 
-              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 A Feast of Knowledge Shared Together
               </h2>
 
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
                 Stories taste sweeter when savored in good company. Gather at the Mad Hatter’s grand banquet of literature—track reading goals with fellow book lovers, unlock milestones, and immerse yourself in community masterclasses.
               </p>
 
               <!-- Feature Highlights Checklist -->
-              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -329,7 +339,7 @@
                   <span>Reading milestones, circular progress gauges, and streak tracking.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -337,7 +347,7 @@
                   <span>Ranked Best-Sellers and trending author recommendations.</span>
                 </li>
                 <li class="flex items-start gap-2.5">
-                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                     </svg>
@@ -357,7 +367,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </NuxtLink>
-                <span class="text-xs text-slate-400">Discover achievements</span>
+                <span class="text-xs text-slate-400 dark:text-slate-500">Discover achievements</span>
               </div>
             </div>
 
@@ -366,7 +376,7 @@
               <!-- Glow backdrop effect -->
               <div class="absolute -inset-2 bg-gradient-to-r from-emerald-400/20 to-purple-600/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
               
-              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-emerald-50/30">
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-purple-900/50 bg-emerald-50/30 dark:bg-emerald-950/20">
                 <img
                   src="/page1.webp"
                   alt="Mad Hatter, Alice, and the Cheshire Cat Tea Party"
@@ -374,7 +384,7 @@
                 />
 
                 <!-- Floating Badge Overlay -->
-                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/80 dark:border-purple-900/50 shadow-lg text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2.5">
                   <span class="text-base">☕</span>
                   <span>The Grand Tea Party • Stories Are Meant to Be Shared</span>
                 </div>
@@ -440,18 +450,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-indigo-100/80 bg-white/60 backdrop-blur-sm py-8 px-4 sm:px-8 text-center text-xs text-slate-500">
+    <footer class="border-t border-indigo-100/80 dark:border-purple-900/40 bg-white/60 dark:bg-[#120E24]/80 backdrop-blur-sm py-8 px-4 sm:px-8 text-center text-xs text-slate-500 dark:text-slate-400">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2">
           <img src="/logo.png" alt="VARAG" class="w-6 h-6 object-contain" />
-          <span class="font-bold text-slate-800">VARAG (ورق)</span>
+          <span class="font-bold text-slate-800 dark:text-slate-200">VARAG (ورق)</span>
           <span>— Modern Digital Book Library & Vault</span>
         </div>
         
-        <div class="flex items-center gap-4 font-semibold text-slate-600">
-          <NuxtLink to="/library" class="hover:text-indigo-600">Library Catalog</NuxtLink>
-          <NuxtLink to="/login" class="hover:text-indigo-600">Sign In</NuxtLink>
-          <NuxtLink to="/signup" class="hover:text-indigo-600">Sign Up</NuxtLink>
+        <div class="flex items-center gap-4 font-semibold text-slate-600 dark:text-slate-300">
+          <NuxtLink to="/library" class="hover:text-indigo-600 dark:hover:text-purple-400">Library Catalog</NuxtLink>
+          <NuxtLink to="/login" class="hover:text-indigo-600 dark:hover:text-purple-400">Sign In</NuxtLink>
+          <NuxtLink to="/signup" class="hover:text-indigo-600 dark:hover:text-purple-400">Sign Up</NuxtLink>
         </div>
       </div>
     </footer>
@@ -460,6 +470,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { Sun, Moon } from 'lucide-vue-next'
+import { useTheme } from '~/composables/useTheme'
 
 useHead({
   title: 'VARAG - Explore the Digital Book Library & Vault',
@@ -471,6 +483,7 @@ useHead({
   ]
 })
 
+const { isDark, toggleTheme } = useTheme()
 const activeChapter = ref('portal')
 
 const chapters = [

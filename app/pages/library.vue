@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-[#ECE8FB] text-slate-800 flex flex-col justify-center items-center p-2 sm:p-4 md:p-8 relative selection:bg-indigo-500 selection:text-white font-sans">
+  <div class="min-h-screen bg-[#ECE8FB] dark:bg-[#0C091C] text-slate-800 dark:text-slate-100 flex flex-col justify-center items-center p-2 sm:p-4 md:p-8 relative selection:bg-indigo-500 selection:text-white font-sans transition-colors duration-300">
     <!-- Ambient 3D floating decorations (Book on top-left, pencil on bottom-right) -->
     <FloatingDecoration />
 
     <!-- Main White Portal Container (Exact representation of landing.webp floating app container) -->
-    <div class="w-full max-w-[1480px] bg-white rounded-3xl md:rounded-[36px] shadow-portal border border-white/80 p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 transition-all">
+    <div class="w-full max-w-[1480px] bg-white dark:bg-[#16122B] rounded-3xl md:rounded-[36px] shadow-portal dark:shadow-2xl dark:shadow-purple-950/40 border border-white/80 dark:border-purple-900/40 p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 transition-all">
       <!-- Left Column: Navigation Sidebar -->
       <Sidebar
         :is-open="isMobileSidebarOpen"
@@ -40,7 +40,7 @@
                 'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5',
                 activeFilter === filter.id
                   ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
+                  : 'bg-slate-100 dark:bg-[#20193D] text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-[#2B2352] hover:text-slate-900 dark:hover:text-white'
               ]"
             >
               <span>{{ filter.label }}</span>
@@ -48,7 +48,9 @@
                 v-if="filter.count !== undefined"
                 :class="[
                   'text-[10px] px-1.5 py-0.2 rounded-full font-mono',
-                  activeFilter === filter.id ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
+                  activeFilter === filter.id
+                    ? 'bg-white/20 text-white'
+                    : 'bg-slate-200 dark:bg-purple-900/40 text-slate-600 dark:text-slate-300'
                 ]"
               >
                 {{ filter.count }}
@@ -57,7 +59,7 @@
           </div>
 
           <!-- Total digital library counter badge -->
-          <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5">
+          <div class="text-[11px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-500" />
             <span>Digital Repository: {{ allBooks.length }} books indexed</span>
           </div>
@@ -70,11 +72,11 @@
             <!-- SECTION 1: Popular (Exact match to screenshot top row) -->
             <section v-if="popularBooks.length > 0" class="space-y-4">
               <div class="flex items-center justify-between">
-                <h2 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Popular</h2>
+                <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">Popular</h2>
                 <button
                   type="button"
                   @click="activeFilter = 'all'"
-                  class="text-[11px] font-bold text-slate-400 hover:text-indigo-600 tracking-wider transition-colors"
+                  class="text-[11px] font-bold text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 tracking-wider transition-colors"
                 >
                   VIEW ALL
                 </button>
@@ -97,15 +99,15 @@
             <section class="space-y-4">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <h2 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Ongoing</h2>
-                  <span v-if="uploadedCount > 0" class="text-[10px] bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded-full border border-indigo-100">
+                  <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">Ongoing</h2>
+                  <span v-if="uploadedCount > 0" class="text-[10px] bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold px-2 py-0.5 rounded-full border border-indigo-100 dark:border-indigo-900/50">
                     +{{ uploadedCount }} Uploaded
                   </span>
                 </div>
                 <button
                   type="button"
                   @click="activeFilter = 'ongoing'"
-                  class="text-[11px] font-bold text-slate-400 hover:text-indigo-600 tracking-wider transition-colors"
+                  class="text-[11px] font-bold text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 tracking-wider transition-colors"
                 >
                   VIEW ALL
                 </button>
@@ -126,20 +128,20 @@
               <!-- Empty search state -->
               <div
                 v-if="ongoingBooks.length === 0 && popularBooks.length === 0"
-                class="py-12 text-center rounded-3xl bg-slate-50 border border-slate-100 space-y-3"
+                class="py-12 text-center rounded-3xl bg-slate-50 dark:bg-[#1A1435] border border-slate-100 dark:border-purple-900/30 space-y-3"
               >
-                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-purple-900/40 text-indigo-600 dark:text-purple-300 flex items-center justify-center mx-auto">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                <h3 class="text-sm font-bold text-slate-800">No books found</h3>
-                <p class="text-xs text-slate-400 max-w-xs mx-auto">
+                <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100">No books found</h3>
+                <p class="text-xs text-slate-400 dark:text-slate-400 max-w-xs mx-auto">
                   We couldn't find any books matching "{{ searchQuery }}". Try adjusting your search or upload a new PDF / EPUB.
                 </p>
                 <button
                   @click="openUploadModal"
-                  class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm"
+                  class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm"
                 >
                   Upload this Book
                 </button>

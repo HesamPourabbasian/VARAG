@@ -1,12 +1,12 @@
 <template>
   <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10 select-none" aria-hidden="true">
     <!-- Ambient ambient glow spots -->
-    <div class="absolute -top-32 -left-32 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse-glow" />
-    <div class="absolute top-1/3 -right-32 w-[30rem] h-[30rem] bg-indigo-200/50 rounded-full blur-3xl" />
-    <div class="absolute -bottom-32 left-1/4 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl" />
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-purple-300/40 dark:bg-purple-900/30 rounded-full blur-3xl animate-pulse-glow" />
+    <div class="absolute top-1/3 -right-32 w-[30rem] h-[30rem] bg-indigo-200/50 dark:bg-indigo-950/40 rounded-full blur-3xl" />
+    <div class="absolute -bottom-32 left-1/4 w-96 h-96 bg-pink-200/30 dark:bg-pink-950/20 rounded-full blur-3xl" />
 
     <!-- Top-Left Floating Blurred 3D Open Book (Inspired by landing.webp) -->
-    <div class="absolute -top-6 -left-6 md:top-8 md:left-12 lg:left-16 w-32 h-32 md:w-44 md:h-44 opacity-75 blur-[2px] hover:blur-none transition-all duration-700 animate-float-book">
+    <div class="absolute -top-6 -left-6 md:top-8 md:left-12 lg:left-16 w-32 h-32 md:w-44 md:h-44 opacity-75 dark:opacity-60 blur-[2px] hover:blur-none transition-all duration-700 animate-float-book">
       <svg viewBox="0 0 200 200" fill="none" class="w-full h-full drop-shadow-[0_20px_35px_rgba(99,102,241,0.3)]">
         <!-- Back cover / shadow -->
         <ellipse cx="100" cy="160" rx="70" ry="14" fill="#A5B4FC" fill-opacity="0.3" />

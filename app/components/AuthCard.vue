@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full max-w-[720px] lg:max-w-[780px] bg-white rounded-2xl sm:rounded-3xl shadow-[0_15px_45px_-12px_rgba(79,70,229,0.18)] border border-white/90 overflow-hidden transition-all duration-300">
+  <div class="relative w-full max-w-[720px] lg:max-w-[780px] bg-white dark:bg-[#16122B] rounded-2xl sm:rounded-3xl shadow-[0_15px_45px_-12px_rgba(79,70,229,0.18)] dark:shadow-2xl dark:shadow-purple-950/40 border border-white/90 dark:border-purple-900/40 overflow-hidden transition-all duration-300">
     <div class="flex flex-col md:flex-row min-h-0 md:min-h-[420px] lg:min-h-[450px]">
       
       <!-- MOBILE BANNER: Compact Illustration Header (Shows only on mobile < md) -->
@@ -7,14 +7,14 @@
         <AuthVisualIllustration />
         <!-- Bottom curved transition into white card -->
         <div class="absolute -bottom-1 left-0 right-0 h-5 pointer-events-none select-none z-10">
-          <svg viewBox="0 0 400 30" preserveAspectRatio="none" class="w-full h-full fill-white">
+          <svg viewBox="0 0 400 30" preserveAspectRatio="none" class="w-full h-full fill-white dark:fill-[#16122B]">
             <path d="M 0 30 L 0 10 C 120 28, 280 0, 400 15 L 400 30 Z" />
           </svg>
         </div>
       </div>
 
       <!-- LEFT COLUMN: Clean Minimalist Auth Form (Exact match to login.webp) -->
-      <div class="w-full md:w-[48%] lg:w-[47%] p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col justify-between z-20 bg-white relative">
+      <div class="w-full md:w-[48%] lg:w-[47%] p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col justify-between z-20 bg-white dark:bg-[#16122B] relative">
         
         <!-- Top Section: Amber Sun Badge & Welcome Header -->
         <div class="space-y-2.5 sm:space-y-3">
@@ -27,7 +27,7 @@
             <!-- Return to Library Link -->
             <NuxtLink
               to="/library"
-              class="text-[10px] font-semibold text-slate-400 hover:text-indigo-600 transition-colors flex items-center gap-1 group"
+              class="text-[10px] font-semibold text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1 group"
             >
               <svg class="w-3 h-3 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -38,28 +38,28 @@
 
           <!-- Main Brand & Mode Header -->
           <div class="space-y-0.5">
-            <p class="text-[11px] font-semibold text-slate-400 tracking-wide">
+            <p class="text-[11px] font-semibold text-slate-400 dark:text-slate-400 tracking-wide">
               {{ isSignUp ? 'Get started with' : 'Welcome to' }}
             </p>
-            <h1 class="text-lg sm:text-xl font-extrabold text-[#1E1B4B] tracking-tight flex items-center gap-1.5">
+            <h1 class="text-lg sm:text-xl font-extrabold text-[#1E1B4B] dark:text-white tracking-tight flex items-center gap-1.5">
               <span>VARAG</span>
-              <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">
+              <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 dark:bg-purple-900/40 text-indigo-600 dark:text-purple-300 border border-indigo-100 dark:border-purple-800/40">
                 {{ isSignUp ? 'Register' : 'Vault' }}
               </span>
             </h1>
-            <p class="text-[10px] text-slate-400 line-clamp-1">
+            <p class="text-[10px] text-slate-400 dark:text-slate-400 line-clamp-1">
               {{ isSignUp ? 'Create your free digital reader account.' : 'Sign in to unlock your digital book vault.' }}
             </p>
           </div>
 
           <!-- Mode Toggle Tabs (Login / Sign Up) -->
-          <div class="flex p-0.5 bg-slate-100/90 rounded-lg w-fit text-[10px] font-semibold">
+          <div class="flex p-0.5 bg-slate-100/90 dark:bg-purple-950/60 rounded-lg w-fit text-[10px] font-semibold border border-transparent dark:border-purple-900/40">
             <button
               type="button"
               @click="setMode(false)"
               :class="[
                 'px-2.5 py-0.5 rounded-md transition-all duration-200',
-                !isSignUp ? 'bg-white text-indigo-600 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800'
+                !isSignUp ? 'bg-white dark:bg-[#281F4B] text-indigo-600 dark:text-purple-300 shadow-sm font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               ]"
             >
               Login
@@ -69,7 +69,7 @@
               @click="setMode(true)"
               :class="[
                 'px-2.5 py-0.5 rounded-md transition-all duration-200',
-                isSignUp ? 'bg-white text-indigo-600 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800'
+                isSignUp ? 'bg-white dark:bg-[#281F4B] text-indigo-600 dark:text-purple-300 shadow-sm font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               ]"
             >
               Sign Up
@@ -79,7 +79,7 @@
           <!-- Error Alert Banner -->
           <div
             v-if="errorMessage"
-            class="p-2 rounded-lg bg-rose-50 border border-rose-100 text-rose-600 text-[10px] flex items-center gap-1.5 animate-in fade-in"
+            class="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/50 border border-rose-100 dark:border-rose-900/50 text-rose-600 dark:text-rose-300 text-[10px] flex items-center gap-1.5 animate-in fade-in"
           >
             <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -182,7 +182,7 @@
 
             <!-- Remember me & Demo Fill (Login mode) -->
             <div v-if="!isSignUp" class="flex items-center justify-between pt-0.5">
-              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 select-none">
+              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 dark:text-slate-400 select-none">
                 <input
                   type="checkbox"
                   v-model="rememberMe"
@@ -194,7 +194,7 @@
               <button
                 type="button"
                 @click="fillDemoCredentials"
-                class="text-[10px] font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+                class="text-[10px] font-semibold text-indigo-600 dark:text-purple-400 hover:text-indigo-800 dark:hover:text-purple-300 transition-colors"
               >
                 Fill Demo
               </button>
@@ -202,7 +202,7 @@
 
             <!-- Terms agreement (Sign Up mode) -->
             <div v-if="isSignUp" class="pt-0.5">
-              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 select-none">
+              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 dark:text-slate-400 select-none">
                 <input
                   type="checkbox"
                   v-model="agreedTerms"
@@ -236,13 +236,13 @@
         </div>
 
         <!-- Bottom Link (Exact match: Dont have an account? Sign up) -->
-        <div class="pt-2 text-[10px] text-slate-400">
+        <div class="pt-2 text-[10px] text-slate-400 dark:text-slate-400">
           <span v-if="!isSignUp">
             Dont have an account?
             <button
               type="button"
               @click="setMode(true)"
-              class="text-[#A855F7] hover:text-[#7E22CE] font-bold underline underline-offset-2 ml-1 transition-colors"
+              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors"
             >
               Sign up
             </button>
@@ -252,7 +252,7 @@
             <button
               type="button"
               @click="setMode(false)"
-              class="text-[#A855F7] hover:text-[#7E22CE] font-bold underline underline-offset-2 ml-1 transition-colors"
+              class="text-[#A855F7] hover:text-[#7E22CE] dark:text-purple-400 dark:hover:text-purple-300 font-bold underline underline-offset-2 ml-1 transition-colors"
             >
               Log in
             </button>
@@ -267,7 +267,7 @@
 
         <!-- Organic S-Curve overlay on desktop separating white form and night scene -->
         <div class="absolute top-0 bottom-0 left-0 w-16 lg:w-20 -translate-x-[1px] pointer-events-none select-none z-10 h-full">
-          <svg viewBox="0 0 100 680" preserveAspectRatio="none" class="w-full h-full fill-white">
+          <svg viewBox="0 0 100 680" preserveAspectRatio="none" class="w-full h-full fill-white dark:fill-[#16122B]">
             <path d="M 0 0 L 100 0 C 70 120, 95 240, 50 380 C 15 490, 45 590, 0 680 Z" />
           </svg>
         </div>

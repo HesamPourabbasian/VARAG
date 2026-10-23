@@ -3,12 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
   html {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: #1E2134;
     background-color: #E8E4F8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  html.dark {
+    color: #F1F5F9;
+    background-color: #0C091C;
   }
 
   body {
@@ -50,6 +59,14 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #AFA6E9;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3B2D6B;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #5C45A3;
 }
 
 /* Soft Animations */
@@ -159,5 +176,19 @@
 
 .auth-error-msg {
   display: none;
+}
+
+.dark .auth-input {
+  border-bottom-color: #382B61;
+  color: #F8FAFC;
+}
+
+.dark .auth-input:focus {
+  border-color: #A855F7;
+  box-shadow: 0 1px 0 0 #A855F7;
+}
+
+.dark dialog::backdrop {
+  background: rgba(10, 8, 20, 0.75);
 }
 

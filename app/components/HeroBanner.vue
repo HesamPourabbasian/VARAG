@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full rounded-3xl bg-gradient-to-r from-[#5969F6] via-[#686EF5] to-[#7E6EF7] p-6 md:p-8 text-white overflow-hidden shadow-banner transition-all duration-300">
+  <div class="relative w-full rounded-3xl bg-gradient-to-r from-[#5969F6] via-[#686EF5] to-[#7E6EF7] dark:from-[#4752C4] dark:via-[#524FC2] dark:to-[#624EC5] p-6 md:p-8 text-white overflow-hidden shadow-banner dark:shadow-2xl dark:shadow-indigo-950/50 border border-transparent dark:border-indigo-400/20 transition-all duration-300">
     <!-- Subtle Background Sparkles & Dots (Matching screenshot) -->
     <div class="absolute inset-0 pointer-events-none select-none">
       <div class="absolute top-4 left-1/4 w-2 h-2 rounded-full bg-amber-300/80 animate-pulse" />

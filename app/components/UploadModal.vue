@@ -3,22 +3,22 @@
     ref="dialogRef"
     closedby="any"
     aria-labelledby="uploadModalTitle"
-    class="p-0 rounded-3xl bg-white shadow-2xl border border-slate-100 max-w-xl w-[92vw] text-slate-800 m-auto backdrop:bg-slate-900/60 transition-all duration-200"
+    class="p-0 rounded-3xl bg-white dark:bg-[#16122B] shadow-2xl border border-slate-100 dark:border-purple-900/40 max-w-xl w-[92vw] text-slate-800 dark:text-slate-100 m-auto backdrop:bg-slate-900/60 transition-all duration-200"
   >
     <div class="p-6 sm:p-8 space-y-6">
       <!-- Modal Header -->
       <div class="flex items-start justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-purple-900/40 text-indigo-600 dark:text-purple-300 flex items-center justify-center font-bold">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
           </div>
           <div>
-            <h2 id="uploadModalTitle" class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+            <h2 id="uploadModalTitle" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
               Upload Digital Book
             </h2>
-            <p class="text-xs text-slate-500">
+            <p class="text-xs text-slate-500 dark:text-slate-400">
               Add digital PDF or EPUB publications to your VARAG library vault.
             </p>
           </div>
@@ -28,7 +28,7 @@
         <button
           type="button"
           @click="closeModal"
-          class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+          class="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-purple-900/30 transition-colors"
           aria-label="Close dialog"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -46,10 +46,10 @@
         :class="[
           'relative border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center gap-2.5',
           isDragging
-            ? 'border-indigo-500 bg-indigo-50/50 scale-[1.01]'
+            ? 'border-indigo-500 bg-indigo-50/50 dark:bg-purple-900/30 scale-[1.01]'
             : selectedFileName
-              ? 'border-emerald-300 bg-emerald-50/30'
-              : 'border-slate-200 hover:border-indigo-300 hover:bg-slate-50/50'
+              ? 'border-emerald-300 dark:border-emerald-700/60 bg-emerald-50/30 dark:bg-emerald-950/20'
+              : 'border-slate-200 dark:border-purple-900/40 hover:border-indigo-300 dark:hover:border-purple-600 hover:bg-slate-50/50 dark:hover:bg-[#20193D]/40'
         ]"
       >
         <input
@@ -62,7 +62,7 @@
 
         <div
           class="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform"
-          :class="selectedFileName ? 'bg-emerald-100 text-emerald-600' : 'bg-indigo-50 text-indigo-600 group-hover:scale-110'"
+          :class="selectedFileName ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400' : 'bg-indigo-50 dark:bg-purple-900/40 text-indigo-600 dark:text-purple-300 group-hover:scale-110'"
         >
           <svg v-if="selectedFileName" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
@@ -73,14 +73,14 @@
         </div>
 
         <div v-if="selectedFileName" class="space-y-0.5">
-          <p class="text-xs font-bold text-slate-800">{{ selectedFileName }}</p>
-          <p class="text-[11px] text-emerald-600 font-semibold">{{ selectedFileSize }} • {{ form.format }} Ready</p>
+          <p class="text-xs font-bold text-slate-800 dark:text-slate-100">{{ selectedFileName }}</p>
+          <p class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">{{ selectedFileSize }} • {{ form.format }} Ready</p>
         </div>
         <div v-else class="space-y-1">
-          <p class="text-xs font-semibold text-slate-700">
-            <span class="text-indigo-600 underline">Choose a file</span> or drag and drop
+          <p class="text-xs font-semibold text-slate-700 dark:text-slate-200">
+            <span class="text-indigo-600 dark:text-purple-400 underline">Choose a file</span> or drag and drop
           </p>
-          <p class="text-[11px] text-slate-400">Supported formats: PDF, EPUB (up to 50MB)</p>
+          <p class="text-[11px] text-slate-400 dark:text-slate-400">Supported formats: PDF, EPUB (up to 50MB)</p>
         </div>
       </div>
 
@@ -89,24 +89,24 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- Title -->
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Book Title *</label>
+            <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Book Title *</label>
             <input
               v-model="form.title"
               required
               type="text"
               placeholder="e.g. Designing Data-Intensive Apps"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#20193D] border border-slate-200 dark:border-purple-900/60 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-purple-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-purple-900/40"
             />
           </div>
 
           <!-- Author -->
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Author Name</label>
+            <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Author Name</label>
             <input
               v-model="form.author"
               type="text"
               placeholder="e.g. Martin Kleppmann"
-              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#20193D] border border-slate-200 dark:border-purple-900/60 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-purple-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-purple-900/40"
             />
           </div>
         </div>
@@ -114,7 +114,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Format Selector -->
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Format</label>
+            <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Format</label>
             <div class="flex items-center gap-2">
               <button
                 type="button"
@@ -122,8 +122,8 @@
                 :class="[
                   'flex-1 py-2 rounded-xl text-xs font-bold border transition-all',
                   form.format === 'PDF'
-                    ? 'bg-rose-50 border-rose-200 text-rose-700'
-                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                    ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300'
+                    : 'bg-slate-50 dark:bg-[#20193D] border-slate-200 dark:border-purple-900/50 text-slate-600 dark:text-slate-300'
                 ]"
               >
                 PDF
@@ -134,8 +134,8 @@
                 :class="[
                   'flex-1 py-2 rounded-xl text-xs font-bold border transition-all',
                   form.format === 'EPUB'
-                    ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
-                    : 'bg-slate-50 border-slate-200 text-slate-600'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'
+                    : 'bg-slate-50 dark:bg-[#20193D] border-slate-200 dark:border-purple-900/50 text-slate-600 dark:text-slate-300'
                 ]"
               >
                 EPUB
@@ -145,10 +145,10 @@
 
           <!-- Category -->
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Category</label>
+            <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Category</label>
             <select
               v-model="form.category"
-              class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-indigo-500"
+              class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-[#20193D] border border-slate-200 dark:border-purple-900/60 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-500 dark:focus:border-purple-500"
             >
               <option value="Computer Science">Computer Science</option>
               <option value="Design & UX">Design & UX</option>
@@ -163,7 +163,7 @@
 
           <!-- Color Theme -->
           <div class="space-y-1">
-            <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Card Palette</label>
+            <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Card Palette</label>
             <div class="flex items-center gap-2 pt-1">
               <button
                 v-for="c in colorOptions"
@@ -183,25 +183,25 @@
 
         <!-- Description / Note -->
         <div class="space-y-1">
-          <label class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Summary / Notes</label>
+          <label class="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Summary / Notes</label>
           <textarea
             v-model="form.description"
             rows="2"
             placeholder="Brief overview of the book's core themes or chapters..."
-            class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500"
+            class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-[#20193D] border border-slate-200 dark:border-purple-900/60 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-purple-500"
           />
         </div>
 
         <!-- Submit Button & Feedback -->
         <div class="pt-2 flex items-center justify-between gap-3">
-          <p v-if="errorMsg" class="text-xs text-rose-600 font-semibold truncate">{{ errorMsg }}</p>
+          <p v-if="errorMsg" class="text-xs text-rose-600 dark:text-rose-400 font-semibold truncate">{{ errorMsg }}</p>
           <div v-else />
 
           <div class="flex items-center gap-3">
             <button
               type="button"
               @click="closeModal"
-              class="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+              class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-purple-900/60 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#20193D]"
             >
               Cancel
             </button>
