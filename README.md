@@ -2,8 +2,6 @@
 
 VARAG is a responsive, full-stack digital book library web application built with **Nuxt 4**, **Nitro**, and **Tailwind CSS**, featuring a clean 3D aesthetic inspired by modern reading interfaces.
 
-![VARAG Landing Preview](./landing.webp)
-
 ## Features
 
 - **3D UI Design**: Floating decorations (ambient open book, ribbon, and pencil) with soft pastel glows and rounded glassmorphism-inspired containers.
