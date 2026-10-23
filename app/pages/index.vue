@@ -380,58 +380,6 @@
 
     </main>
 
-    <!-- FINAL CALL TO ACTION (The Master Button to Enter Landing Page) -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-8 pb-20">
-      <div class="relative rounded-3xl md:rounded-[44px] bg-gradient-to-br from-[#1E1242] via-[#2D1660] to-[#431B82] text-white p-8 sm:p-12 md:p-16 overflow-hidden shadow-2xl text-center space-y-6 border border-indigo-400/20">
-        
-        <!-- Ambient decorative shapes inside banner -->
-        <div class="absolute -top-24 -left-24 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl pointer-events-none" />
-        <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-pink-500/30 rounded-full blur-3xl pointer-events-none" />
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div class="relative z-10 space-y-3 max-w-2xl mx-auto">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-purple-200">
-            <span>✨ Your Digital Reading Vault Awaits</span>
-          </div>
-
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
-            Ready to Begin Your Adventure in
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-indigo-200">
-              VARAG
-            </span>?
-          </h2>
-
-          <p class="text-xs sm:text-sm md:text-base text-purple-200/90 font-normal leading-relaxed max-w-xl mx-auto">
-            Access the full 3D interactive dashboard, browse popular collections, upload personal PDFs & EPUBs, and unlock daily reading achievements.
-          </p>
-        </div>
-
-        <!-- THE PROMINENT SPECIFIC ENTRY BUTTON -->
-        <div class="relative z-10 pt-2 flex flex-wrap items-center justify-center gap-4">
-          <NuxtLink
-            to="/library"
-            class="px-8 sm:px-10 py-4 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white font-extrabold text-sm sm:text-base shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 hover:scale-105 active:scale-98 transition-all duration-300 flex items-center gap-3"
-          >
-            <span>Enter the VARAG Library</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/signup"
-            class="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold text-sm border border-white/20 transition-all duration-200"
-          >
-            Create Reader Account
-          </NuxtLink>
-        </div>
-
-        <p class="relative z-10 text-[11px] text-purple-300/70 pt-2">
-          Free digital vault • Instant access • No download required
-        </p>
-      </div>
-    </section>
-
     <!-- Footer -->
     <footer class="border-t border-indigo-100/80 dark:border-purple-900/40 bg-white/60 dark:bg-[#120E24]/80 backdrop-blur-sm py-8 px-4 sm:px-8 text-center text-xs text-slate-500 dark:text-slate-400">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
