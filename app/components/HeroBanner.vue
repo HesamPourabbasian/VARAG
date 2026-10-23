@@ -69,9 +69,6 @@
 
       <!-- Center Text & CTAs (Exact copy & layout from screenshot) -->
       <div class="flex-1 text-center md:text-left max-w-xl">
-        <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white mb-2 leading-tight">
-          Hi, Irham Muhammad Shidiq
-        </h1>
         <p class="text-xs sm:text-sm text-indigo-100/90 font-normal mb-5 leading-relaxed">
           The library serves as a welcoming home for knowledge seekers and avid readers alike. Upload and explore your favorite digital books in PDF and EPUB formats.
         </p>
