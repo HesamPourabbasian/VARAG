@@ -4,6 +4,14 @@ VARAG is a responsive, full-stack digital book library web application built wit
 
 ## Features
 
+- **Introductory Storytelling Page (`/`)**:
+  - Parallel storytelling experience introducing VARAG (*ورق • کتابخانه دیجیتال*).
+  - High-fidelity artwork narrative based on classic wonder:
+    - **Chapter 1: The Portal** (`page3.webp`): Stepping through the hollow tree portal of curiosity.
+    - **Chapter 2: The Vortex Vault** (`page2.webp`): Falling into the infinite sea of flying leaves, books, and keys.
+    - **Chapter 3: The Banquet** (`page1.webp`): Gathering around the grand tea party of shared knowledge and achievement tracking.
+  - Dedicated interactive entry buttons (**"Enter VARAG Library Portal"**) leading to the main library dashboard (`/library`).
+  - Sticky navigation header with chapter steppers and live scroll indicators.
 - **3D UI Design**: Floating decorations (ambient open book, ribbon, and pencil) with soft pastel glows and rounded glassmorphism-inspired containers.
 - **Digital Library Catalog**:
   - Filter by **All Books**, **PDF Vault**, **EPUB Books**, **My Uploads**, or **Favorites**.

@@ -176,11 +176,11 @@ const currentSection = ref(props.activeSection || 'Home')
 
 // Exact items requested: HOME / CATEGORIES / AUTHORS / COURSES / LIBRARY / SIGN-REGISTER
 const navItems = [
-  { name: 'Home', label: 'HOME', icon: Home },
+  { name: 'Home', label: 'HOME', icon: Home, to: '/' },
   { name: 'Categories', label: 'CATEGORIES', icon: LayoutGrid, badge: 'Vault', badgeClass: 'bg-purple-100 text-purple-700' },
   { name: 'Authors', label: 'AUTHORS', icon: Users },
   { name: 'Courses', label: 'COURSES', icon: BookOpen, badge: 'New', badgeClass: 'bg-emerald-100 text-emerald-700' },
-  { name: 'Library', label: 'LIBRARY', icon: Library, badge: '1.4k', badgeClass: 'bg-indigo-100 text-indigo-700' },
+  { name: 'Library', label: 'LIBRARY', icon: Library, badge: '1.4k', badgeClass: 'bg-indigo-100 text-indigo-700', to: '/library' },
   { name: 'Sign-Register', label: 'SIGN-REGISTER', icon: LogIn, to: '/login' }
 ]
 

@@ -1,329 +1,532 @@
 <template>
-  <div class="min-h-screen bg-[#ECE8FB] text-slate-800 flex flex-col justify-center items-center p-2 sm:p-4 md:p-8 relative selection:bg-indigo-500 selection:text-white font-sans">
-    <!-- Ambient 3D floating decorations (Book on top-left, pencil on bottom-right) -->
-    <FloatingDecoration />
-
-    <!-- Main White Portal Container (Exact representation of landing.webp floating app container) -->
-    <div class="w-full max-w-[1480px] bg-white rounded-3xl md:rounded-[36px] shadow-portal border border-white/80 p-4 sm:p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 transition-all">
-      <!-- Left Column: Navigation Sidebar -->
-      <Sidebar
-        :is-open="isMobileSidebarOpen"
-        :active-section="activeSection"
-        @close="isMobileSidebarOpen = false"
-        @select-section="handleSelectSection"
-        @open-pro-modal="openProModal"
-      />
-
-      <!-- Right Column: Main Content Area -->
-      <main class="flex-1 min-w-0 space-y-6">
-        <!-- Top Bar: Search, Live pill, Dark mode, Bell, User Profile, Upload Button -->
-        <TopHeader
-          v-model="searchQuery"
-          @toggle-sidebar="isMobileSidebarOpen = !isMobileSidebarOpen"
-          @open-upload="openUploadModal"
-        />
-
-        <!-- Hero Banner: 3D Books with Glasses + Greeting + 3D Bookshelf -->
-        <HeroBanner
-          @learn-more="scrollToLibrary"
-          @open-upload="openUploadModal"
-        />
-
-        <!-- Format & Filter Pills -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
-            <button
-              v-for="filter in formatFilters"
-              :key="filter.id"
-              @click="activeFilter = filter.id"
-              :class="[
-                'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5',
-                activeFilter === filter.id
-                  ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900'
-              ]"
-            >
-              <span>{{ filter.label }}</span>
-              <span
-                v-if="filter.count !== undefined"
-                :class="[
-                  'text-[10px] px-1.5 py-0.2 rounded-full font-mono',
-                  activeFilter === filter.id ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
-                ]"
-              >
-                {{ filter.count }}
-              </span>
-            </button>
-          </div>
-
-          <!-- Total digital library counter badge -->
-          <div class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>Digital Repository: {{ allBooks.length }} books indexed</span>
-          </div>
-        </div>
-
-        <!-- Center & Right Multi-column Grid -->
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-8 items-start">
-          <!-- Center Columns: Popular & Ongoing Book Grids (8 Cols on XL) -->
-          <div class="xl:col-span-8 space-y-8">
-            <!-- SECTION 1: Popular (Exact match to screenshot top row) -->
-            <section v-if="popularBooks.length > 0" class="space-y-4">
-              <div class="flex items-center justify-between">
-                <h2 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Popular</h2>
-                <button
-                  type="button"
-                  @click="activeFilter = 'all'"
-                  class="text-[11px] font-bold text-slate-400 hover:text-indigo-600 tracking-wider transition-colors"
-                >
-                  VIEW ALL
-                </button>
-              </div>
-
-              <!-- 4-Card Responsive Grid -->
-              <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <BookCard
-                  v-for="book in popularBooks"
-                  :key="book.id"
-                  :book="book"
-                  @select="openReader"
-                  @toggle-bookmark="toggleBookmark"
-                  @toggle-favorite="toggleFavorite"
-                />
-              </div>
-            </section>
-
-            <!-- SECTION 2: Ongoing / Recently Uploaded (Exact match to screenshot bottom row) -->
-            <section class="space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <h2 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Ongoing</h2>
-                  <span v-if="uploadedCount > 0" class="text-[10px] bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded-full border border-indigo-100">
-                    +{{ uploadedCount }} Uploaded
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  @click="activeFilter = 'ongoing'"
-                  class="text-[11px] font-bold text-slate-400 hover:text-indigo-600 tracking-wider transition-colors"
-                >
-                  VIEW ALL
-                </button>
-              </div>
-
-              <!-- 4-Card Responsive Grid -->
-              <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <BookCard
-                  v-for="book in ongoingBooks"
-                  :key="book.id"
-                  :book="book"
-                  @select="openReader"
-                  @toggle-bookmark="toggleBookmark"
-                  @toggle-favorite="toggleFavorite"
-                />
-              </div>
-
-              <!-- Empty search state -->
-              <div
-                v-if="ongoingBooks.length === 0 && popularBooks.length === 0"
-                class="py-12 text-center rounded-3xl bg-slate-50 border border-slate-100 space-y-3"
-              >
-                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-                <h3 class="text-sm font-bold text-slate-800">No books found</h3>
-                <p class="text-xs text-slate-400 max-w-xs mx-auto">
-                  We couldn't find any books matching "{{ searchQuery }}". Try adjusting your search or upload a new PDF / EPUB.
-                </p>
-                <button
-                  @click="openUploadModal"
-                  class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm"
-                >
-                  Upload this Book
-                </button>
-              </div>
-            </section>
-          </div>
-
-          <!-- Right Column Rail: Achievements & Best Sales (4 Cols on XL) -->
-          <div class="xl:col-span-4 space-y-6">
-            <!-- Widget 1: Unlocks achievement (Exact match to screenshot) -->
-            <AchievementsWidget />
-
-            <!-- Widget 2: Best sales / Top Reads (Exact match to screenshot) -->
-            <BestSalesWidget
-              :items="bestSalesBooks"
-              @select-book="openReader"
-              @view-all="activeFilter = 'all'"
-            />
-          </div>
-        </div>
-      </main>
+  <div class="min-h-screen bg-[#F4F1FD] text-slate-800 font-sans selection:bg-indigo-600 selection:text-white relative overflow-x-hidden">
+    
+    <!-- Ambient Floating Background Blobs -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none" aria-hidden="true">
+      <div class="absolute -top-32 -left-32 w-[34rem] h-[34rem] bg-purple-300/35 rounded-full blur-3xl animate-pulse-glow" />
+      <div class="absolute top-1/3 -right-36 w-[38rem] h-[38rem] bg-indigo-200/40 rounded-full blur-3xl" />
+      <div class="absolute top-2/3 -left-28 w-[32rem] h-[32rem] bg-pink-200/30 rounded-full blur-3xl" />
+      <div class="absolute -bottom-32 right-1/4 w-[36rem] h-[36rem] bg-purple-200/35 rounded-full blur-3xl" />
     </div>
 
-    <!-- Upload Book Modal (<dialog> compliant with modern-web-guidance) -->
-    <UploadModal
-      ref="uploadModalRef"
-      @book-uploaded="handleBookUploaded"
-    />
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-indigo-50/80 px-4 sm:px-8 py-3.5 transition-all shadow-sm">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        
+        <!-- Brand Logo & Title -->
+        <NuxtLink to="/" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-white shadow-md shadow-indigo-500/15 border border-indigo-100 flex items-center justify-center overflow-hidden p-0.5 group-hover:scale-105 transition-transform">
+            <img src="/logo.png" alt="VARAG" class="w-full h-full object-contain rounded-lg" />
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl font-black text-slate-900 tracking-tight">VARAG</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-indigo-50 text-indigo-600 border border-indigo-100">ورق</span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium">Digital Book Vault & Hub</p>
+          </div>
+        </NuxtLink>
 
-    <!-- Digital Book Reader / Details Modal -->
-    <BookReaderModal
-      ref="readerModalRef"
-      @update-book="handleBookUpdated"
-    />
+        <!-- Chapter Quick Jump Navigation (Hidden on small mobile) -->
+        <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-full text-xs font-semibold text-slate-600">
+          <button
+            v-for="(chapter, idx) in chapters"
+            :key="chapter.id"
+            @click="scrollToChapter(chapter.id)"
+            :class="[
+              'px-3.5 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5',
+              activeChapter === chapter.id
+                ? 'bg-white text-indigo-600 shadow-sm font-bold'
+                : 'hover:text-slate-900'
+            ]"
+          >
+            <span class="text-[10px] text-indigo-400 font-mono">0{{ idx + 1 }}</span>
+            <span>{{ chapter.navTitle }}</span>
+          </button>
+        </nav>
 
-    <!-- Pro Upgrade Modal -->
-    <ProModal ref="proModalRef" />
+        <!-- Action CTA Buttons (SPECIFIC BUTTON TO ENTER LANDING PAGE) -->
+        <div class="flex items-center gap-2.5">
+          <NuxtLink
+            to="/login"
+            class="hidden sm:inline-flex px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-600 hover:bg-indigo-50/60 transition-colors"
+          >
+            Log In
+          </NuxtLink>
 
-    <!-- Toast Notification -->
-    <transition
-      enter-active-class="transform ease-out duration-300 transition"
-      enter-from-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
-      enter-to-class="translate-y-0 opacity-100 sm:translate-x-0"
-      leave-active-class="transition ease-in duration-200"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="toastMsg"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-medium shadow-2xl border border-slate-800"
-      >
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>{{ toastMsg }}</span>
+          <!-- The Specific Enter Landing Page Button -->
+          <NuxtLink
+            to="/library"
+            class="group inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+          >
+            <span>Enter Library</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </NuxtLink>
+        </div>
       </div>
-    </transition>
+    </header>
+
+    <!-- Hero Intro Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-20 text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-indigo-100 shadow-sm text-xs font-semibold text-indigo-700 mb-2">
+        <span class="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse"></span>
+        <span>Introducing VARAG Digital Library</span>
+        <span class="text-slate-300">•</span>
+        <span class="text-slate-500 font-normal">کتابخانه دیجیتال ورق</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-[1.15]">
+        Where Every Story Begins With
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
+          Curiosity & Wonder
+        </span>
+      </h1>
+
+      <p class="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+        Step through the digital looking glass. Explore an ever-expanding library vault of PDFs and EPUBs, upload your own beloved volumes, and immerse yourself in reading adventures.
+      </p>
+
+      <!-- Primary Action Buttons in Hero -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 pt-3">
+        <!-- SPECIFIC MAIN ENTRY BUTTON -->
+        <NuxtLink
+          to="/library"
+          class="px-8 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/45 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2.5"
+        >
+          <span>Enter VARAG Library Portal</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </NuxtLink>
+
+        <button
+          type="button"
+          @click="scrollToChapter('portal')"
+          class="px-6 py-3.5 rounded-full bg-white/90 hover:bg-white text-slate-700 hover:text-indigo-600 font-bold text-sm border border-slate-200/80 shadow-sm transition-all duration-200 flex items-center gap-2"
+        >
+          <span>Explore Chapters</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Feature Pill Badges -->
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 pt-6 text-xs text-slate-500">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+          <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="font-semibold text-slate-700">Universal PDF & EPUB Ingestion</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+          <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="font-semibold text-slate-700">3D Illustrated Book Art</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-slate-100 shadow-sm">
+          <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="font-semibold text-slate-700">Offline Synced Reading Vault</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARALLEL STORYTELLING SECTIONS (Chapters 1, 2, 3) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 space-y-20 sm:space-y-32 pb-24">
+      
+      <!-- CHAPTER 1: The Gateway to Wonder (page3.webp) -->
+      <section id="portal" class="scroll-mt-24">
+        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Parallel Text Column (Left) -->
+            <div class="lg:col-span-5 space-y-5">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold tracking-wider uppercase">
+                <span>Chapter 01</span>
+                <span>•</span>
+                <span>The Portal</span>
+              </div>
+
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Step Through the Portal of Curiosity
+              </h2>
+
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                Every profound reading journey begins with an unexpected doorway. Like following the hurried rabbit into the glowing hollow of the ancient tree, VARAG opens a secret portal into a treasury of ideas, knowledge, and imagination.
+              </p>
+
+              <!-- Feature Highlights Checklist -->
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Instant portal access to thousands of curated digital publications.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>High-speed semantic search across titles, authors, and genres.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Zero clutter — only pure reading serenity and modern elegance.</span>
+                </li>
+              </ul>
+
+              <!-- Quick CTA to Library -->
+              <div class="pt-4 flex items-center gap-3">
+                <NuxtLink
+                  to="/library"
+                  class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold transition-all shadow-md flex items-center gap-2 group"
+                >
+                  <span>Explore the Portal</span>
+                  <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
+                <span class="text-xs text-slate-400">Direct to catalog</span>
+              </div>
+            </div>
+
+            <!-- Parallel Image Column (Right - page3.webp) -->
+            <div class="lg:col-span-7 relative group">
+              <!-- Glow backdrop effect -->
+              <div class="absolute -inset-2 bg-gradient-to-r from-amber-400/20 to-indigo-500/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
+              
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-amber-50/30">
+                <img
+                  src="/page3.webp"
+                  alt="Alice and the White Rabbit at the Glowing Tree Portal"
+                  class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                />
+
+                <!-- Floating Badge Overlay -->
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                  <span>Curiosity Unlocked • Follow the White Rabbit</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CHAPTER 2: The Vortex of Leaves & Books (page2.webp) -->
+      <section id="vortex" class="scroll-mt-24">
+        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Parallel Image Column (Left on Desktop - page2.webp) -->
+            <div class="lg:col-span-7 relative group order-2 lg:order-1">
+              <!-- Glow backdrop effect -->
+              <div class="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
+              
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-indigo-950/20">
+                <img
+                  src="/page2.webp"
+                  alt="Alice tumbling down the vortex of flying book pages, keys, and clocks"
+                  class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                />
+
+                <!-- Floating Badge Overlay -->
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                  <span class="text-base">📖</span>
+                  <span>The Infinite Vault • Every Page (ورق) Preserved</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Parallel Text Column (Right on Desktop) -->
+            <div class="lg:col-span-5 space-y-5 order-1 lg:order-2">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-bold tracking-wider uppercase">
+                <span>Chapter 02</span>
+                <span>•</span>
+                <span>The Vortex Vault</span>
+              </div>
+
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Falling into an Endless Sea of Knowledge
+              </h2>
+
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                In Persian, <em>VARAG (ورق)</em> is the living leaf of a book—the physical spark of a written thought. As Alice tumbles through flying manuscripts and floating golden keys, VARAG catches and cradles every volume you upload into permanent digital sanctuary.
+              </p>
+
+              <!-- Feature Highlights Checklist -->
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Universal file drag-and-drop for both PDF and EPUB digital formats.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Automated metadata extraction, file size calculation, and cover palette.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Offline digital book reader with interactive table of contents.</span>
+                </li>
+              </ul>
+
+              <!-- Quick CTA to Library -->
+              <div class="pt-4 flex items-center gap-3">
+                <NuxtLink
+                  to="/library"
+                  class="px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/20 flex items-center gap-2 group"
+                >
+                  <span>Upload & Vault Books</span>
+                  <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
+                <span class="text-xs text-slate-400">PDF & EPUB ready</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CHAPTER 3: The Feast of Shared Stories (page1.webp) -->
+      <section id="gathering" class="scroll-mt-24">
+        <div class="bg-white/90 rounded-3xl md:rounded-[40px] border border-white/80 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)] p-6 sm:p-10 md:p-14 overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Parallel Text Column (Left) -->
+            <div class="lg:col-span-5 space-y-5">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold tracking-wider uppercase">
+                <span>Chapter 03</span>
+                <span>•</span>
+                <span>The Community Banquet</span>
+              </div>
+
+              <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                A Feast of Knowledge Shared Together
+              </h2>
+
+              <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                Stories taste sweeter when savored in good company. Gather at the Mad Hatter’s grand banquet of literature—track reading goals with fellow book lovers, unlock milestones, and immerse yourself in community masterclasses.
+              </p>
+
+              <!-- Feature Highlights Checklist -->
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-slate-700">
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Reading milestones, circular progress gauges, and streak tracking.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Ranked Best-Sellers and trending author recommendations.</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Interactive course modules and literary discussions.</span>
+                </li>
+              </ul>
+
+              <!-- Quick CTA to Library -->
+              <div class="pt-4 flex items-center gap-3">
+                <NuxtLink
+                  to="/library"
+                  class="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md shadow-emerald-500/20 flex items-center gap-2 group"
+                >
+                  <span>Join the Tea Party</span>
+                  <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
+                <span class="text-xs text-slate-400">Discover achievements</span>
+              </div>
+            </div>
+
+            <!-- Parallel Image Column (Right - page1.webp) -->
+            <div class="lg:col-span-7 relative group">
+              <!-- Glow backdrop effect -->
+              <div class="absolute -inset-2 bg-gradient-to-r from-emerald-400/20 to-purple-600/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
+              
+              <div class="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/80 bg-emerald-50/30">
+                <img
+                  src="/page1.webp"
+                  alt="Mad Hatter, Alice, and the Cheshire Cat Tea Party"
+                  class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                />
+
+                <!-- Floating Badge Overlay -->
+                <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 px-4 py-2.5 rounded-2xl bg-white/90 backdrop-blur-md border border-white/80 shadow-lg text-xs font-bold text-slate-800 flex items-center gap-2.5">
+                  <span class="text-base">☕</span>
+                  <span>The Grand Tea Party • Stories Are Meant to Be Shared</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FINAL CALL TO ACTION (The Master Button to Enter Landing Page) -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-8 pb-20">
+      <div class="relative rounded-3xl md:rounded-[44px] bg-gradient-to-br from-[#1E1242] via-[#2D1660] to-[#431B82] text-white p-8 sm:p-12 md:p-16 overflow-hidden shadow-2xl text-center space-y-6 border border-indigo-400/20">
+        
+        <!-- Ambient decorative shapes inside banner -->
+        <div class="absolute -top-24 -left-24 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-pink-500/30 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+
+        <div class="relative z-10 space-y-3 max-w-2xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-purple-200">
+            <span>✨ Your Digital Reading Vault Awaits</span>
+          </div>
+
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+            Ready to Begin Your Adventure in
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-indigo-200">
+              VARAG
+            </span>?
+          </h2>
+
+          <p class="text-xs sm:text-sm md:text-base text-purple-200/90 font-normal leading-relaxed max-w-xl mx-auto">
+            Access the full 3D interactive dashboard, browse popular collections, upload personal PDFs & EPUBs, and unlock daily reading achievements.
+          </p>
+        </div>
+
+        <!-- THE PROMINENT SPECIFIC ENTRY BUTTON -->
+        <div class="relative z-10 pt-2 flex flex-wrap items-center justify-center gap-4">
+          <NuxtLink
+            to="/library"
+            class="px-8 sm:px-10 py-4 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white font-extrabold text-sm sm:text-base shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 hover:scale-105 active:scale-98 transition-all duration-300 flex items-center gap-3"
+          >
+            <span>Enter the VARAG Library</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </NuxtLink>
+
+          <NuxtLink
+            to="/signup"
+            class="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold text-sm border border-white/20 transition-all duration-200"
+          >
+            Create Reader Account
+          </NuxtLink>
+        </div>
+
+        <p class="relative z-10 text-[11px] text-purple-300/70 pt-2">
+          Free digital vault • Instant access • No download required
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-indigo-100/80 bg-white/60 backdrop-blur-sm py-8 px-4 sm:px-8 text-center text-xs text-slate-500">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <img src="/logo.png" alt="VARAG" class="w-6 h-6 object-contain" />
+          <span class="font-bold text-slate-800">VARAG (ورق)</span>
+          <span>— Modern Digital Book Library & Vault</span>
+        </div>
+        
+        <div class="flex items-center gap-4 font-semibold text-slate-600">
+          <NuxtLink to="/library" class="hover:text-indigo-600">Library Catalog</NuxtLink>
+          <NuxtLink to="/login" class="hover:text-indigo-600">Sign In</NuxtLink>
+          <NuxtLink to="/signup" class="hover:text-indigo-600">Sign Up</NuxtLink>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import type { Book } from '../../shared/types/book'
-import FloatingDecoration from '~/components/FloatingDecoration.vue'
-import Sidebar from '~/components/Sidebar.vue'
-import TopHeader from '~/components/TopHeader.vue'
-import HeroBanner from '~/components/HeroBanner.vue'
-import BookCard from '~/components/BookCard.vue'
-import AchievementsWidget from '~/components/AchievementsWidget.vue'
-import BestSalesWidget from '~/components/BestSalesWidget.vue'
-import UploadModal from '~/components/UploadModal.vue'
-import BookReaderModal from '~/components/BookReaderModal.vue'
-import ProModal from '~/components/ProModal.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-// UI States
-const isMobileSidebarOpen = ref(false)
-const activeSection = ref('Library')
-const searchQuery = ref('')
-const activeFilter = ref<'all' | 'pdf' | 'epub' | 'ongoing' | 'uploaded' | 'favorites'>('all')
-const toastMsg = ref('')
-
-// Modal references
-const uploadModalRef = ref<InstanceType<typeof UploadModal> | null>(null)
-const readerModalRef = ref<InstanceType<typeof BookReaderModal> | null>(null)
-const proModalRef = ref<InstanceType<typeof ProModal> | null>(null)
-
-// Server Fetching using Nuxt's useFetch
-const { data, refresh } = await useFetch('/api/books', {
-  query: computed(() => ({
-    search: searchQuery.value,
-    format: activeFilter.value === 'pdf' ? 'PDF' : activeFilter.value === 'epub' ? 'EPUB' : 'ALL',
-    tab: activeFilter.value
-  }))
+useHead({
+  title: 'VARAG - Explore the Digital Book Library & Vault',
+  meta: [
+    {
+      name: 'description',
+      content: 'Welcome to VARAG (ورق). Step through the digital looking glass into an enchanted book vault featuring PDF and EPUB library management.'
+    }
+  ]
 })
 
-const allBooks = computed(() => data.value?.books || [])
-const popularBooks = computed(() => data.value?.popular || [])
-const ongoingBooks = computed(() => data.value?.ongoing || [])
-const bestSalesBooks = computed(() => data.value?.bestSales || [])
-const uploadedCount = computed(() => data.value?.counts?.uploaded || 0)
+const activeChapter = ref('portal')
 
-const formatFilters = computed(() => [
-  { id: 'all' as const, label: 'All Digital Books', count: data.value?.counts?.all },
-  { id: 'pdf' as const, label: 'PDF Vault', count: data.value?.counts?.pdf },
-  { id: 'epub' as const, label: 'EPUB Books', count: data.value?.counts?.epub },
-  { id: 'uploaded' as const, label: 'My Uploads', count: data.value?.counts?.uploaded },
-  { id: 'favorites' as const, label: 'Favorites' }
-])
+const chapters = [
+  { id: 'portal', navTitle: 'The Portal' },
+  { id: 'vortex', navTitle: 'The Vortex' },
+  { id: 'gathering', navTitle: 'The Banquet' }
+]
 
-// Handlers
-const openUploadModal = () => {
-  uploadModalRef.value?.openModal()
-}
-
-const openReader = (book: Book) => {
-  readerModalRef.value?.open(book)
-}
-
-const openProModal = () => {
-  proModalRef.value?.openModal()
-}
-
-const showToast = (msg: string) => {
-  toastMsg.value = msg
-  setTimeout(() => {
-    toastMsg.value = ''
-  }, 4000)
-}
-
-const handleBookUploaded = async () => {
-  await refresh()
-  showToast('Digital book uploaded and indexed successfully into VARAG!')
-}
-
-const handleBookUpdated = (updatedBook: Book) => {
-  const target = allBooks.value.find(b => b.id === updatedBook.id)
-  if (target) {
-    target.isBookmarked = updatedBook.isBookmarked
-    target.isFavorite = updatedBook.isFavorite
-    target.progress = updatedBook.progress
+const scrollToChapter = (id: string) => {
+  activeChapter.value = id
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
-const toggleBookmark = async (id: string) => {
-  const b = allBooks.value.find(item => item.id === id)
-  if (!b) return
-  b.isBookmarked = !b.isBookmarked
-  showToast(b.isBookmarked ? `"${b.title.slice(0, 24)}..." bookmarked` : 'Bookmark removed')
-  await $fetch(`/api/books/${id}`, {
-    method: 'PATCH',
-    body: { isBookmarked: b.isBookmarked }
-  }).catch(() => {})
-}
+// Update active chapter on scroll
+let observer: IntersectionObserver | null = null
 
-const toggleFavorite = async (id: string) => {
-  const b = allBooks.value.find(item => item.id === id)
-  if (!b) return
-  b.isFavorite = !b.isFavorite
-  showToast(b.isFavorite ? `"${b.title.slice(0, 24)}..." added to favorites` : 'Removed from favorites')
-  await $fetch(`/api/books/${id}`, {
-    method: 'PATCH',
-    body: { isFavorite: b.isFavorite }
-  }).catch(() => {})
-}
+onMounted(() => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeChapter.value = entry.target.id
+        }
+      })
+    },
+    { threshold: 0.4 }
+  )
 
-const handleSelectSection = (name: string) => {
-  activeSection.value = name
-  if (name === 'Home') {
-    activeFilter.value = 'all'
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  } else if (name === 'Library') {
-    activeFilter.value = 'all'
-    scrollToLibrary()
-  } else if (name === 'Categories') {
-    scrollToLibrary()
-    showToast('Categories: Filter between PDF Vault, EPUB Books, and Uploads')
-  } else if (name === 'Authors') {
-    showToast('Authors: Showing curated works from top digital authors')
-  } else if (name === 'Courses') {
-    showToast('Courses: Digital book learning tracks and masterclasses')
-  } else if (name === 'Sign-Register') {
-    navigateTo('/login')
-  }
-}
+  chapters.forEach((c) => {
+    const el = document.getElementById(c.id)
+    if (el) observer?.observe(el)
+  })
+})
 
-const scrollToLibrary = () => {
-  window.scrollTo({ top: 350, behavior: 'smooth' })
-}
+onUnmounted(() => {
+  observer?.disconnect()
+})
 </script>
