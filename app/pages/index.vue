@@ -61,12 +61,12 @@
     </header>
 
     <!-- Hero Intro Section with 80s Japanese Anime Background Image (100% Full Width) -->
-    <section class="relative w-full overflow-hidden text-center text-white min-h-[580px] md:min-h-[640px] lg:min-h-[700px] flex flex-col justify-center items-center shadow-2xl group border-b border-indigo-100/30 dark:border-purple-900/40">
-      <!-- 80s Japanese Anime Background Image spanning 100% full width -->
+    <section class="relative w-full overflow-hidden text-center text-white min-h-[580px] md:min-h-[640px] lg:min-h-[700px] flex flex-col justify-center items-center shadow-2xl border-b border-indigo-100/30 dark:border-purple-900/40">
+      <!-- 80s Japanese Anime Background Image spanning 100% full width (Static Background) -->
       <img
         src="/hero-anime.webp"
         alt="1980s Retro Japanese Anime Library Background"
-        class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08] pointer-events-none select-none transition-transform duration-1000 ease-out group-hover:scale-105"
+        class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.08] pointer-events-none select-none"
         loading="eager"
       />
 
