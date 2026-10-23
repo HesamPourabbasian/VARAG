@@ -116,28 +116,6 @@
             </svg>
           </button>
         </div>
-
-        <!-- Feature Pill Badges directly in the hero container -->
-        <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pt-4 text-xs">
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="font-semibold text-slate-200">Universal PDF & EPUB Ingestion</span>
-          </div>
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="font-semibold text-slate-200">1980s Retro Anime Library</span>
-          </div>
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/20 text-white shadow-md">
-            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="font-semibold text-slate-200">Offline Synced Reading Vault</span>
-          </div>
-        </div>
       </div>
     </section>
 
