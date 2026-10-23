@@ -321,8 +321,8 @@ const errorMessage = ref('')
 
 const form = reactive({
   name: '',
-  email: props.initialMode === 'signup' ? '' : 'bonjourguys@talk.com',
-  password: props.initialMode === 'signup' ? '' : '••••••••',
+  email: '',
+  password: '',
   confirmPassword: ''
 })
 
@@ -340,14 +340,10 @@ const setMode = (signUp: boolean) => {
   emit('mode-changed', signUp ? 'signup' : 'login')
 
   if (signUp) {
-    if (form.email === 'bonjourguys@talk.com') form.email = ''
-    if (form.password === '••••••••' || form.password === 'inspace2026') form.password = ''
     if (typeof window !== 'undefined' && window.location.pathname === '/login') {
       navigateTo('/signup')
     }
   } else {
-    if (!form.email) form.email = 'bonjourguys@talk.com'
-    if (!form.password) form.password = '••••••••'
     if (typeof window !== 'undefined' && window.location.pathname === '/signup') {
       navigateTo('/login')
     }
@@ -386,7 +382,7 @@ const handleSubmit = async () => {
     }
   } else {
     if (!form.email.trim()) {
-      errorMessage.value = 'Please enter your email.'
+      errorMessage.value = 'Please enter your email address.'
       return
     }
     if (!form.password) {
