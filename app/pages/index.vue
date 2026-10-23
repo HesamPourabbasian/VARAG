@@ -107,11 +107,6 @@
           </span>
         </h1>
 
-        <!-- Intro Paragraph -->
-        <p class="text-sm sm:text-base md:text-lg text-slate-100 font-normal leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-          Step through the digital looking glass into our nostalgic 80s anime reading sanctuary. Explore an ever-expanding library vault of PDFs and EPUBs, upload your own beloved volumes, and immerse yourself in reading adventures.
-        </p>
-
         <!-- Primary Action Buttons in Hero -->
         <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
           <!-- SPECIFIC MAIN ENTRY BUTTON -->
