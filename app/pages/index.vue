@@ -380,28 +380,15 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-indigo-100/80 dark:border-purple-900/40 bg-white/60 dark:bg-[#120E24]/80 backdrop-blur-sm py-8 px-4 sm:px-8 text-center text-xs text-slate-500 dark:text-slate-400">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-          <img src="/logo.png" alt="VARAG" class="w-6 h-6 object-contain" />
-          <span class="font-bold text-slate-800 dark:text-slate-200">VARAG (ورق)</span>
-          <span>— Modern Digital Book Library & Vault</span>
-        </div>
-        
-        <div class="flex items-center gap-4 font-semibold text-slate-600 dark:text-slate-300">
-          <NuxtLink to="/library" class="hover:text-indigo-600 dark:hover:text-purple-400">Library Catalog</NuxtLink>
-          <NuxtLink to="/login" class="hover:text-indigo-600 dark:hover:text-purple-400">Sign In</NuxtLink>
-          <NuxtLink to="/signup" class="hover:text-indigo-600 dark:hover:text-purple-400">Sign Up</NuxtLink>
-        </div>
-      </div>
-    </footer>
+    <!-- Comprehensive Modern Footer with Social Links -->
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Sun, Moon } from 'lucide-vue-next'
+import AppFooter from '~/components/AppFooter.vue'
 import { useTheme } from '~/composables/useTheme'
 
 useHead({
