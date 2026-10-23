@@ -18,24 +18,19 @@
       <div class="space-y-8">
         <!-- Logo Header -->
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3 cursor-pointer group">
-            <!-- Stylized Stacked Books Icon (Exact representation of screenshot logo) -->
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-brand-primary flex items-center justify-center shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-              <svg viewBox="0 0 28 28" fill="none" class="w-6 h-6 text-white">
-                <!-- Stacked books glyph -->
-                <rect x="5" y="7" width="18" height="4.5" rx="2" fill="white" />
-                <rect x="5" y="13" width="18" height="4.5" rx="2" fill="white" fill-opacity="0.9" />
-                <rect x="5" y="19" width="14" height="4.5" rx="2" fill="white" fill-opacity="0.8" />
-              </svg>
+          <NuxtLink to="/" class="flex items-center gap-3 cursor-pointer group">
+            <!-- Brand Icon using official VARAG logo -->
+            <div class="w-11 h-11 rounded-xl bg-white shadow-md shadow-indigo-500/10 border border-indigo-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform p-0.5">
+              <img src="/logo.png" alt="VARAG" class="w-full h-full object-contain rounded-lg" />
             </div>
             <div>
               <span class="text-xl font-extrabold text-slate-800 tracking-tight flex items-center gap-1.5">
                 VARAG
                 <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-50 text-indigo-600 border border-indigo-100">Vault</span>
               </span>
-              <p class="text-[11px] text-slate-400 font-medium">Digital Library & Hub</p>
+              <p class="text-[11px] text-slate-400 font-medium">ورق • Digital Library</p>
             </div>
-          </div>
+          </NuxtLink>
 
           <!-- Close button on mobile -->
           <button
@@ -49,67 +44,95 @@
           </button>
         </div>
 
-        <!-- Navigation Menu Items -->
+        <!-- Navigation Menu Items: Exactly HOME, CATEGORIES, AUTHORS, COURSES, LIBRARY, SIGN-REGISTER -->
         <nav class="space-y-1.5" aria-label="Main Navigation">
-          <button
-            v-for="item in navItems"
-            :key="item.name"
-            @click="handleSelect(item.name)"
-            :class="[
-              'w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 group relative',
-              currentSection === item.name
-                ? 'text-indigo-600 font-semibold bg-indigo-50/70'
-                : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-            ]"
-          >
-            <!-- Active indicator left bar (like in screenshot) -->
-            <div
-              v-if="currentSection === item.name"
-              class="absolute -left-6 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-indigo-600 rounded-r-full hidden lg:block"
-            />
-
-            <!-- Item Icon -->
-            <component
-              :is="item.icon"
+          <template v-for="item in navItems" :key="item.name">
+            <!-- NuxtLink for items with direct route (Sign-Register) -->
+            <NuxtLink
+              v-if="item.to"
+              :to="item.to"
               :class="[
-                'w-5 h-5 transition-transform duration-200 group-hover:scale-110',
-                currentSection === item.name ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'
+                'w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 group relative',
+                currentSection === item.name
+                  ? 'text-indigo-600 font-semibold bg-indigo-50/70'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
               ]"
-            />
-
-            <span class="truncate">{{ item.label }}</span>
-
-            <!-- Badge indicator for Live Class or Library -->
-            <span
-              v-if="item.badge"
-              class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full"
-              :class="item.badgeClass"
+              @click="$emit('close')"
             >
-              {{ item.badge }}
-            </span>
-          </button>
+              <!-- Active indicator left bar -->
+              <div
+                v-if="currentSection === item.name"
+                class="absolute -left-6 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-indigo-600 rounded-r-full hidden lg:block"
+              />
 
-          <!-- Auth Link in Sidebar -->
-          <NuxtLink
-            to="/login"
-            class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/50 transition-all duration-200 group"
-          >
-            <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-            </svg>
-            <span class="truncate">Sign In / Register</span>
-          </NuxtLink>
+              <!-- Item Icon -->
+              <component
+                :is="item.icon"
+                :class="[
+                  'w-5 h-5 transition-transform duration-200 group-hover:scale-110',
+                  currentSection === item.name ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'
+                ]"
+              />
+
+              <span class="truncate font-semibold tracking-wide text-xs uppercase">{{ item.label }}</span>
+
+              <span
+                v-if="item.badge"
+                class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                :class="item.badgeClass"
+              >
+                {{ item.badge }}
+              </span>
+            </NuxtLink>
+
+            <!-- Standard Section Button -->
+            <button
+              v-else
+              type="button"
+              @click="handleSelect(item.name)"
+              :class="[
+                'w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 group relative text-left',
+                currentSection === item.name
+                  ? 'text-indigo-600 font-semibold bg-indigo-50/70'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+              ]"
+            >
+              <!-- Active indicator left bar -->
+              <div
+                v-if="currentSection === item.name"
+                class="absolute -left-6 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-indigo-600 rounded-r-full hidden lg:block"
+              />
+
+              <!-- Item Icon -->
+              <component
+                :is="item.icon"
+                :class="[
+                  'w-5 h-5 transition-transform duration-200 group-hover:scale-110',
+                  currentSection === item.name ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-600'
+                ]"
+              />
+
+              <span class="truncate font-semibold tracking-wide text-xs uppercase">{{ item.label }}</span>
+
+              <span
+                v-if="item.badge"
+                class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full"
+                :class="item.badgeClass"
+              >
+                {{ item.badge }}
+              </span>
+            </button>
+          </template>
         </nav>
       </div>
 
-      <!-- Bottom Card: Upgrade to Pro (Exact match to screenshot) -->
+      <!-- Bottom Card: Upgrade to Pro -->
       <div class="mt-8 pt-4">
         <div class="p-5 rounded-2xl bg-gradient-to-b from-[#F7F5FF] to-[#ECE7FE] border border-indigo-100/60 text-center relative overflow-hidden group">
-          <!-- Subtle decorative circle -->
           <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-indigo-200/40 rounded-full blur-xl pointer-events-none" />
 
           <p class="text-xs font-semibold text-slate-700 leading-snug mb-3">
-            Upgrade to <span class="text-indigo-600 font-bold">Pro</span> for more facilities
+            Upgrade to <span class="text-indigo-600 font-bold">Pro</span> for unlimited storage
           </p>
 
           <button
@@ -131,14 +154,11 @@
 import { ref } from 'vue'
 import {
   Home,
+  LayoutGrid,
   Users,
-  GraduationCap,
   BookOpen,
-  Tv,
-  CheckSquare,
-  CreditCard,
   Library,
-  AlertTriangle
+  LogIn
 } from 'lucide-vue-next'
 
 const props = defineProps<{
@@ -152,18 +172,16 @@ const emit = defineEmits<{
   (e: 'open-pro-modal'): void
 }>()
 
-const currentSection = ref(props.activeSection || 'Library')
+const currentSection = ref(props.activeSection || 'Home')
 
+// Exact items requested: HOME / CATEGORIES / AUTHORS / COURSES / LIBRARY / SIGN-REGISTER
 const navItems = [
-  { name: 'Home', label: 'Home', icon: Home },
-  { name: 'Students', label: 'Students', icon: Users },
-  { name: 'Teachers', label: 'Teachers', icon: GraduationCap },
-  { name: 'Courses', label: 'Courses', icon: BookOpen },
-  { name: 'Live Class', label: 'Live Class', icon: Tv, badge: 'Live', badgeClass: 'bg-rose-100 text-rose-600' },
-  { name: 'Attendance', label: 'Attendance', icon: CheckSquare },
-  { name: 'Payments', label: 'Payments', icon: CreditCard },
-  { name: 'Library', label: 'Library', icon: Library, badge: '1.4k', badgeClass: 'bg-indigo-100 text-indigo-700' },
-  { name: 'Reports', label: 'Reports', icon: AlertTriangle }
+  { name: 'Home', label: 'HOME', icon: Home },
+  { name: 'Categories', label: 'CATEGORIES', icon: LayoutGrid, badge: 'Vault', badgeClass: 'bg-purple-100 text-purple-700' },
+  { name: 'Authors', label: 'AUTHORS', icon: Users },
+  { name: 'Courses', label: 'COURSES', icon: BookOpen, badge: 'New', badgeClass: 'bg-emerald-100 text-emerald-700' },
+  { name: 'Library', label: 'LIBRARY', icon: Library, badge: '1.4k', badgeClass: 'bg-indigo-100 text-indigo-700' },
+  { name: 'Sign-Register', label: 'SIGN-REGISTER', icon: LogIn, to: '/login' }
 ]
 
 const handleSelect = (name: string) => {

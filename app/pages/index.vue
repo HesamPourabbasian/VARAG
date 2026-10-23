@@ -305,8 +305,21 @@ const toggleFavorite = async (id: string) => {
 
 const handleSelectSection = (name: string) => {
   activeSection.value = name
-  if (name !== 'Library') {
-    showToast(`Navigated to ${name} portal`)
+  if (name === 'Home') {
+    activeFilter.value = 'all'
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else if (name === 'Library') {
+    activeFilter.value = 'all'
+    scrollToLibrary()
+  } else if (name === 'Categories') {
+    scrollToLibrary()
+    showToast('Categories: Filter between PDF Vault, EPUB Books, and Uploads')
+  } else if (name === 'Authors') {
+    showToast('Authors: Showing curated works from top digital authors')
+  } else if (name === 'Courses') {
+    showToast('Courses: Digital book learning tracks and masterclasses')
+  } else if (name === 'Sign-Register') {
+    navigateTo('/login')
   }
 }
 
