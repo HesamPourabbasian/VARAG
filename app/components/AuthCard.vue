@@ -1,12 +1,12 @@
 <template>
-  <div class="relative w-full max-w-[780px] lg:max-w-[840px] bg-white rounded-2xl sm:rounded-3xl md:rounded-[32px] shadow-[0_20px_50px_-15px_rgba(79,70,229,0.2)] border border-white/90 overflow-hidden transition-all duration-300">
-    <div class="flex flex-col md:flex-row min-h-0 md:min-h-[460px] lg:min-h-[490px]">
+  <div class="relative w-full max-w-[720px] lg:max-w-[780px] bg-white rounded-2xl sm:rounded-3xl shadow-[0_15px_45px_-12px_rgba(79,70,229,0.18)] border border-white/90 overflow-hidden transition-all duration-300">
+    <div class="flex flex-col md:flex-row min-h-0 md:min-h-[420px] lg:min-h-[450px]">
       
       <!-- MOBILE BANNER: Compact Illustration Header (Shows only on mobile < md) -->
-      <div class="block md:hidden relative h-36 sm:h-44 w-full overflow-hidden bg-[#1E0C4C]">
+      <div class="block md:hidden relative h-24 sm:h-28 w-full overflow-hidden bg-[#1E0C4C]">
         <AuthVisualIllustration />
         <!-- Bottom curved transition into white card -->
-        <div class="absolute -bottom-1 left-0 right-0 h-6 pointer-events-none select-none z-10">
+        <div class="absolute -bottom-1 left-0 right-0 h-5 pointer-events-none select-none z-10">
           <svg viewBox="0 0 400 30" preserveAspectRatio="none" class="w-full h-full fill-white">
             <path d="M 0 30 L 0 10 C 120 28, 280 0, 400 15 L 400 30 Z" />
           </svg>
@@ -14,22 +14,22 @@
       </div>
 
       <!-- LEFT COLUMN: Clean Minimalist Auth Form (Exact match to login.webp) -->
-      <div class="w-full md:w-[48%] lg:w-[46%] p-5 sm:p-7 md:p-8 lg:p-9 flex flex-col justify-between z-20 bg-white relative">
+      <div class="w-full md:w-[48%] lg:w-[47%] p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col justify-between z-20 bg-white relative">
         
         <!-- Top Section: Amber Sun Badge & Welcome Header -->
-        <div class="space-y-4">
+        <div class="space-y-2.5 sm:space-y-3">
           <div class="flex items-center justify-between">
             <!-- Amber / Sun Badge (Exact match to login.webp) -->
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-amber-300 shadow-md shadow-amber-400/25 flex items-center justify-center transform hover:scale-105 transition-transform">
-              <div class="w-3.5 h-3.5 rounded-full bg-white/40 blur-[1px]"></div>
+            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-amber-300 shadow-sm shadow-amber-400/25 flex items-center justify-center transform hover:scale-105 transition-transform">
+              <div class="w-3 h-3 rounded-full bg-white/40 blur-[1px]"></div>
             </div>
 
             <!-- Return to Library Link -->
             <NuxtLink
-              to="/"
-              class="text-[11px] font-semibold text-slate-400 hover:text-indigo-600 transition-colors flex items-center gap-1 group"
+              to="/library"
+              class="text-[10px] font-semibold text-slate-400 hover:text-indigo-600 transition-colors flex items-center gap-1 group"
             >
-              <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3 h-3 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
               </svg>
               <span>Library</span>
@@ -38,27 +38,27 @@
 
           <!-- Main Brand & Mode Header -->
           <div class="space-y-0.5">
-            <p class="text-xs font-semibold text-slate-400 tracking-wide">
+            <p class="text-[11px] font-semibold text-slate-400 tracking-wide">
               {{ isSignUp ? 'Get started with' : 'Welcome to' }}
             </p>
-            <h1 class="text-xl sm:text-2xl font-extrabold text-[#1E1B4B] tracking-tight flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-extrabold text-[#1E1B4B] tracking-tight flex items-center gap-1.5">
               <span>VARAG</span>
-              <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">
+              <span class="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100">
                 {{ isSignUp ? 'Register' : 'Vault' }}
               </span>
             </h1>
-            <p class="text-[11px] text-slate-400">
-              {{ isSignUp ? 'Create your reader account to upload & index books.' : 'Enter your credentials to unlock your digital book vault.' }}
+            <p class="text-[10px] text-slate-400 line-clamp-1">
+              {{ isSignUp ? 'Create your free digital reader account.' : 'Sign in to unlock your digital book vault.' }}
             </p>
           </div>
 
           <!-- Mode Toggle Tabs (Login / Sign Up) -->
-          <div class="flex p-0.5 bg-slate-100/90 rounded-lg w-fit text-[11px] font-semibold">
+          <div class="flex p-0.5 bg-slate-100/90 rounded-lg w-fit text-[10px] font-semibold">
             <button
               type="button"
               @click="setMode(false)"
               :class="[
-                'px-3 py-1 rounded-md transition-all duration-200',
+                'px-2.5 py-0.5 rounded-md transition-all duration-200',
                 !isSignUp ? 'bg-white text-indigo-600 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800'
               ]"
             >
@@ -68,7 +68,7 @@
               type="button"
               @click="setMode(true)"
               :class="[
-                'px-3 py-1 rounded-md transition-all duration-200',
+                'px-2.5 py-0.5 rounded-md transition-all duration-200',
                 isSignUp ? 'bg-white text-indigo-600 shadow-sm font-bold' : 'text-slate-500 hover:text-slate-800'
               ]"
             >
@@ -79,19 +79,19 @@
           <!-- Error Alert Banner -->
           <div
             v-if="errorMessage"
-            class="p-2.5 rounded-lg bg-rose-50 border border-rose-100 text-rose-600 text-[11px] flex items-center gap-1.5 animate-in fade-in"
+            class="p-2 rounded-lg bg-rose-50 border border-rose-100 text-rose-600 text-[10px] flex items-center gap-1.5 animate-in fade-in"
           >
-            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>{{ errorMessage }}</span>
           </div>
 
           <!-- Form Element -->
-          <form @submit.prevent="handleSubmit" class="space-y-3 pt-0.5" novalidate>
+          <form @submit.prevent="handleSubmit" class="space-y-2 pt-0.5" novalidate>
             <!-- Full Name (Sign Up only) -->
             <div v-if="isSignUp" class="auth-field space-y-0.5">
-              <label for="fullName" class="text-[11px] font-semibold text-slate-400">
+              <label for="fullName" class="text-[10px] font-semibold text-slate-400">
                 Full Name
               </label>
               <input
@@ -101,16 +101,16 @@
                 required
                 autocomplete="name"
                 placeholder="Alex Morgan"
-                class="auth-input py-1 text-xs"
+                class="auth-input py-0.5 text-xs"
               />
-              <div class="auth-error-msg text-[10px] text-rose-500 items-center gap-1">
+              <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
                 <span>Please enter your name.</span>
               </div>
             </div>
 
             <!-- Email Field (Exact match from login.webp) -->
             <div class="auth-field space-y-0.5">
-              <label for="email" class="text-[11px] font-semibold text-slate-400">
+              <label for="email" class="text-[10px] font-semibold text-slate-400">
                 Email
               </label>
               <input
@@ -120,71 +120,73 @@
                 required
                 autocomplete="email"
                 placeholder="bonjourguys@talk.com"
-                class="auth-input py-1 text-xs font-medium"
+                class="auth-input py-0.5 text-xs font-medium"
               />
-              <div class="auth-error-msg text-[10px] text-rose-500 items-center gap-1">
+              <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
                 <span>Please enter a valid email address.</span>
               </div>
             </div>
 
-            <!-- Password Field (Exact match from login.webp) -->
-            <div class="auth-field space-y-0.5">
-              <div class="flex items-center justify-between">
-                <label for="password" class="text-[11px] font-semibold text-slate-400">
-                  Password
-                </label>
-                <!-- Show / Hide Password toggle -->
-                <button
-                  type="button"
-                  @click="showPassword = !showPassword"
-                  class="text-[10px] text-slate-400 hover:text-indigo-600 transition-colors"
-                >
-                  {{ showPassword ? 'Hide' : 'Show' }}
-                </button>
+            <!-- Password Fields: Side-by-side on tablet/desktop for Sign Up to minimize height -->
+            <div :class="[isSignUp ? 'grid grid-cols-1 sm:grid-cols-2 gap-2.5' : 'space-y-0.5']">
+              <!-- Password Field -->
+              <div class="auth-field space-y-0.5">
+                <div class="flex items-center justify-between">
+                  <label for="password" class="text-[10px] font-semibold text-slate-400">
+                    Password
+                  </label>
+                  <button
+                    type="button"
+                    @click="showPassword = !showPassword"
+                    class="text-[9px] text-slate-400 hover:text-indigo-600 transition-colors"
+                  >
+                    {{ showPassword ? 'Hide' : 'Show' }}
+                  </button>
+                </div>
+
+                <div class="relative">
+                  <input
+                    id="password"
+                    v-model="form.password"
+                    :type="showPassword ? 'text' : 'password'"
+                    required
+                    :autocomplete="isSignUp ? 'new-password' : 'current-password'"
+                    placeholder="••••••••"
+                    class="auth-input py-0.5 tracking-wider font-mono text-xs"
+                  />
+                </div>
+                <div class="auth-error-msg text-[9px] text-rose-500 items-center gap-1">
+                  <span>Min 6 characters.</span>
+                </div>
               </div>
 
-              <div class="relative">
+              <!-- Confirm Password (Sign Up only) -->
+              <div v-if="isSignUp" class="auth-field space-y-0.5">
+                <label for="confirmPassword" class="text-[10px] font-semibold text-slate-400">
+                  Confirm Password
+                </label>
                 <input
-                  id="password"
-                  v-model="form.password"
+                  id="confirmPassword"
+                  v-model="form.confirmPassword"
                   :type="showPassword ? 'text' : 'password'"
                   required
-                  :autocomplete="isSignUp ? 'new-password' : 'current-password'"
+                  autocomplete="new-password"
                   placeholder="••••••••"
-                  class="auth-input py-1 tracking-wider font-mono text-xs"
+                  class="auth-input py-0.5 tracking-wider font-mono text-xs"
                 />
-              </div>
-              <div class="auth-error-msg text-[10px] text-rose-500 items-center gap-1">
-                <span>Password must be at least 6 characters.</span>
-              </div>
-            </div>
-
-            <!-- Confirm Password (Sign Up only) -->
-            <div v-if="isSignUp" class="auth-field space-y-0.5">
-              <label for="confirmPassword" class="text-[11px] font-semibold text-slate-400">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                v-model="form.confirmPassword"
-                :type="showPassword ? 'text' : 'password'"
-                required
-                autocomplete="new-password"
-                placeholder="••••••••"
-                class="auth-input py-1 tracking-wider font-mono text-xs"
-              />
-              <div v-if="passwordMismatch" class="text-[10px] text-rose-500 flex items-center gap-1 pt-0.5">
-                <span>Passwords do not match.</span>
+                <div v-if="passwordMismatch" class="text-[9px] text-rose-500 flex items-center gap-1">
+                  <span>Passwords do not match.</span>
+                </div>
               </div>
             </div>
 
             <!-- Remember me & Demo Fill (Login mode) -->
             <div v-if="!isSignUp" class="flex items-center justify-between pt-0.5">
-              <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-slate-500 select-none">
+              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 select-none">
                 <input
                   type="checkbox"
                   v-model="rememberMe"
-                  class="w-3.5 h-3.5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
+                  class="w-3 h-3 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
                 />
                 <span>Remember me</span>
               </label>
@@ -200,27 +202,27 @@
 
             <!-- Terms agreement (Sign Up mode) -->
             <div v-if="isSignUp" class="pt-0.5">
-              <label class="flex items-start gap-1.5 cursor-pointer text-[10px] text-slate-500 select-none">
+              <label class="flex items-center gap-1.5 cursor-pointer text-[10px] text-slate-500 select-none">
                 <input
                   type="checkbox"
                   v-model="agreedTerms"
                   required
-                  class="w-3 h-3 mt-0.5 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
+                  class="w-3 h-3 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 accent-purple-600"
                 />
-                <span>I agree to Library Terms & Privacy Policy</span>
+                <span>I agree to Library Terms & Privacy</span>
               </label>
             </div>
 
             <!-- Submit Button (Pill button matching login.webp LOGIN) -->
-            <div class="pt-2">
+            <div class="pt-1.5">
               <button
                 type="submit"
                 :disabled="isLoading"
-                class="px-7 py-2.5 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:from-[#7E22CE] hover:to-[#9333EA] text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60"
+                class="px-6 py-2 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:from-[#7E22CE] hover:to-[#9333EA] text-white font-bold text-xs uppercase tracking-wider shadow-sm shadow-purple-500/20 hover:shadow-purple-500/35 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-1.5 disabled:opacity-60"
               >
                 <svg
                   v-if="isLoading"
-                  class="animate-spin -ml-1 mr-1.5 h-3.5 w-3.5 text-white"
+                  class="animate-spin -ml-1 mr-1 h-3 w-3 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -234,7 +236,7 @@
         </div>
 
         <!-- Bottom Link (Exact match: Dont have an account? Sign up) -->
-        <div class="pt-4 text-[11px] text-slate-400">
+        <div class="pt-2 text-[10px] text-slate-400">
           <span v-if="!isSignUp">
             Dont have an account?
             <button
@@ -259,20 +261,19 @@
       </div>
 
       <!-- RIGHT COLUMN: Night Scene Illustration + Organic Wave (Desktop/Tablet) -->
-      <div class="hidden md:block w-full md:w-[52%] lg:w-[54%] relative overflow-hidden bg-[#1E0C4C]">
+      <div class="hidden md:block w-full md:w-[52%] lg:w-[53%] relative overflow-hidden bg-[#1E0C4C]">
         <!-- Full-fidelity vector illustration component -->
         <AuthVisualIllustration />
 
         <!-- Organic S-Curve overlay on desktop separating white form and night scene -->
-        <div class="absolute top-0 bottom-0 left-0 w-20 lg:w-24 -translate-x-[1px] pointer-events-none select-none z-10 h-full">
+        <div class="absolute top-0 bottom-0 left-0 w-16 lg:w-20 -translate-x-[1px] pointer-events-none select-none z-10 h-full">
           <svg viewBox="0 0 100 680" preserveAspectRatio="none" class="w-full h-full fill-white">
-            <!-- Smooth bezier wave matching the white form swooping into the illustration -->
             <path d="M 0 0 L 100 0 C 70 120, 95 240, 50 380 C 15 490, 45 590, 0 680 Z" />
           </svg>
         </div>
 
         <!-- Blue accent wave at the bottom-left of the card (Exact match to login.webp) -->
-        <div class="absolute bottom-0 left-0 w-36 h-28 pointer-events-none select-none z-10">
+        <div class="absolute bottom-0 left-0 w-28 h-20 pointer-events-none select-none z-10">
           <svg viewBox="0 0 200 160" preserveAspectRatio="none" class="w-full h-full">
             <defs>
               <linearGradient id="blueWaveGrad" x1="0%" y1="100%" x2="100%" y2="0%">
@@ -363,7 +364,7 @@ const handleSubmit = async () => {
     }
 
     emit('success', user)
-    await navigateTo('/')
+    await navigateTo('/library')
   } catch (err: any) {
     errorMessage.value = err.message || 'An error occurred during authentication.'
   } finally {
