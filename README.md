@@ -16,6 +16,13 @@ VARAG is a responsive, full-stack digital book library web application built wit
   - 3D visual preview cover.
   - Chapter list and interactive sample text reader.
   - Reading progress tracker and bookmark toggle.
+- **Authentication Pages (`/login` & `/signup`)**:
+  - High-fidelity visual interface inspired by modern illustrated portal art (`login.webp`).
+  - Night scene vector illustration with mountain ranges, starry night sky, glowing full moon, pine forest, modernist architectural villa, glowing stone steps, and celestial open doorway.
+  - Organic bezier curve divider and bottom-left indigo accent wave.
+  - Smooth animated toggle between Login and Sign Up modes.
+  - Modern HTML5 validation (`:user-invalid`, `:user-valid`, `autocomplete`, format hints) adhering to modern web guidance.
+  - Interactive password show/hide toggle, demo credentials quick-fill, and persistent auth cookie state.
 - **Sidebar & Widgets**:
   - "Unlocks achievement" reading challenge cards with circular progress indicators.
   - "Best sales" book ranking.

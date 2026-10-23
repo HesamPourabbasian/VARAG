@@ -88,6 +88,17 @@
               {{ item.badge }}
             </span>
           </button>
+
+          <!-- Auth Link in Sidebar -->
+          <NuxtLink
+            to="/login"
+            class="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl font-medium text-sm text-slate-500 hover:text-indigo-600 hover:bg-indigo-50/50 transition-all duration-200 group"
+          >
+            <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            <span class="truncate">Sign In / Register</span>
+          </NuxtLink>
         </nav>
       </div>
 

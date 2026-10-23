@@ -109,15 +109,71 @@
         </div>
       </div>
 
-      <!-- User Profile (Exact match from screenshot) -->
-      <div class="flex items-center gap-2 pl-1 cursor-pointer group">
-        <div class="relative">
-          <img
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-            alt="Irham Muhammad"
-            class="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-100 group-hover:ring-indigo-300 transition-all"
-          />
-          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+      <!-- User Profile (Exact match from screenshot with dropdown & auth) -->
+      <div class="relative">
+        <button
+          @click="showUserMenu = !showUserMenu"
+          class="flex items-center gap-2 pl-1 cursor-pointer group focus:outline-none"
+          aria-label="User account menu"
+        >
+          <div class="relative">
+            <img
+              :src="currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'"
+              :alt="currentUser?.name || 'User'"
+              class="w-9 h-9 rounded-full object-cover ring-2 ring-indigo-100 group-hover:ring-indigo-300 transition-all"
+            />
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+          </div>
+        </button>
+
+        <!-- User Dropdown Menu -->
+        <div
+          v-if="showUserMenu"
+          class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 z-50 text-xs space-y-1 animate-in fade-in"
+        >
+          <div class="p-2 border-b border-slate-100 flex items-center gap-2.5">
+            <img
+              :src="currentUser?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'"
+              class="w-8 h-8 rounded-full object-cover"
+            />
+            <div class="min-w-0">
+              <p class="font-bold text-slate-800 truncate">{{ currentUser?.name || 'Guest Reader' }}</p>
+              <p class="text-[10px] text-slate-400 truncate">{{ currentUser?.email || 'Sign in to sync' }}</p>
+            </div>
+          </div>
+
+          <NuxtLink
+            to="/login"
+            @click="showUserMenu = false"
+            class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 font-medium transition-colors"
+          >
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+            <span>Log In Page</span>
+          </NuxtLink>
+
+          <NuxtLink
+            to="/signup"
+            @click="showUserMenu = false"
+            class="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 font-medium transition-colors"
+          >
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+            <span>Sign Up Page</span>
+          </NuxtLink>
+
+          <button
+            v-if="currentUser"
+            @click="handleLogout"
+            class="w-full text-left flex items-center gap-2 px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 font-medium transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Log Out</span>
+          </button>
         </div>
       </div>
     </div>
@@ -126,6 +182,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useAuth } from '~/composables/useAuth'
 
 const props = defineProps<{
   modelValue: string
@@ -137,10 +194,16 @@ defineEmits<{
   (e: 'open-upload'): void
 }>()
 
+const { currentUser, logout } = useAuth()
 const showNotifications = ref(false)
+const showUserMenu = ref(false)
+
+const handleLogout = () => {
+  showUserMenu.value = false
+  logout()
+}
 
 const toggleDarkMode = () => {
-  // Graceful notification toast or state switch
-  alert('Theme switcher: Dark mode preview active! Soft lilac mode is currently active.')
+  alert('Theme switcher: Soft lilac aesthetic active.')
 }
 </script>

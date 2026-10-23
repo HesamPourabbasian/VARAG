@@ -125,3 +125,39 @@
 .glass-banner-btn:hover {
   background: rgba(255, 255, 255, 0.28);
 }
+
+/* Modern Form & Validation Styles according to modern-web-guidance */
+.auth-input {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: transparent;
+  border-bottom: 1.5px solid #E2E8F0;
+  color: #1E1B4B;
+  font-size: 0.875rem;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.auth-input:focus {
+  border-color: #8B5CF6;
+  box-shadow: 0 1px 0 0 #8B5CF6;
+}
+
+.auth-input:user-invalid {
+  border-color: #EF4444;
+  box-shadow: 0 1px 0 0 #EF4444;
+}
+
+.auth-input:user-valid:not(:placeholder-shown) {
+  border-color: #10B981;
+}
+
+.auth-field:has(.auth-input:user-invalid) .auth-error-msg {
+  display: flex;
+}
+
+.auth-error-msg {
+  display: none;
+}
+
