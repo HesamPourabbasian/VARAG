@@ -1,19 +1,19 @@
 <template>
-  <div class="min-h-screen bg-[#ECE8FB] text-slate-800 flex flex-col justify-center items-center p-3 sm:p-6 md:p-10 relative selection:bg-purple-600 selection:text-white font-sans overflow-hidden">
+  <div class="min-h-screen bg-[#ECE8FB] text-slate-800 flex flex-col justify-center items-center p-3 sm:p-5 md:p-6 relative selection:bg-purple-600 selection:text-white font-sans overflow-hidden">
     
     <!-- Ambient Background Lighting & Watermarks -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10 select-none" aria-hidden="true">
-      <div class="absolute -top-24 -left-24 w-96 h-96 bg-purple-300/35 rounded-full blur-3xl animate-pulse-glow" />
-      <div class="absolute top-1/2 -right-32 w-[32rem] h-[32rem] bg-indigo-200/40 rounded-full blur-3xl" />
-      <div class="absolute -bottom-24 left-1/3 w-96 h-96 bg-pink-200/30 rounded-full blur-3xl" />
+      <div class="absolute -top-24 -left-24 w-80 h-80 bg-purple-300/30 rounded-full blur-3xl animate-pulse-glow" />
+      <div class="absolute top-1/2 -right-32 w-96 h-96 bg-indigo-200/35 rounded-full blur-3xl" />
+      <div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-pink-200/25 rounded-full blur-3xl" />
 
-      <div class="absolute top-6 left-8 sm:top-10 sm:left-14 opacity-25">
-        <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Create Account</p>
-        <p class="text-4xl sm:text-5xl font-black text-indigo-950 tracking-tight">VARAG</p>
+      <div class="hidden lg:block absolute top-6 left-10 opacity-20">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Create Account</p>
+        <p class="text-3xl font-black text-indigo-950 tracking-tight">VARAG</p>
       </div>
 
-      <div class="absolute bottom-6 left-12 sm:bottom-10 sm:left-20 opacity-30">
-        <p class="text-sm font-semibold text-slate-500">
+      <div class="hidden lg:block absolute bottom-6 left-14 opacity-25">
+        <p class="text-xs font-semibold text-slate-500">
           Already have an account? <span class="text-purple-600 underline">Log in</span>
         </p>
       </div>
@@ -23,7 +23,7 @@
     <AuthCard initial-mode="signup" />
 
     <!-- Mobile Quick Nav to Library -->
-    <div class="mt-4 text-center">
+    <div class="mt-3 text-center">
       <NuxtLink
         to="/"
         class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-indigo-600 transition-colors"
