@@ -27,24 +27,6 @@
           </div>
         </NuxtLink>
 
-        <!-- Chapter Quick Jump Navigation (Hidden on small mobile) -->
-        <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 p-1 rounded-full text-xs font-semibold text-slate-600">
-          <button
-            v-for="(chapter, idx) in chapters"
-            :key="chapter.id"
-            @click="scrollToChapter(chapter.id)"
-            :class="[
-              'px-3.5 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5',
-              activeChapter === chapter.id
-                ? 'bg-white text-indigo-600 shadow-sm font-bold'
-                : 'hover:text-slate-900'
-            ]"
-          >
-            <span class="text-[10px] text-indigo-400 font-mono">0{{ idx + 1 }}</span>
-            <span>{{ chapter.navTitle }}</span>
-          </button>
-        </nav>
-
         <!-- Action CTA Buttons (SPECIFIC BUTTON TO ENTER LANDING PAGE) -->
         <div class="flex items-center gap-2.5">
           <NuxtLink
