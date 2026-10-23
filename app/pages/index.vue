@@ -91,14 +91,6 @@
 
       <!-- Foreground Content: ALL intro texts directly on the full-width background illustration -->
       <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-8 py-16 sm:py-20 md:py-24 space-y-6">
-        <!-- Intro Pill Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-xs font-bold text-white mb-1">
-          <span class="flex h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
-          <span>Introducing VARAG Digital Library</span>
-          <span class="text-white/40">•</span>
-          <span class="text-amber-200 font-normal">کتابخانه دیجیتال ورق</span>
-        </div>
-
         <!-- Main Title -->
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] drop-shadow-[0_4px_20px_rgba(0,0,0,0.7)]">
           Where Every Story Begins With
