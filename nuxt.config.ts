@@ -7,6 +7,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss'
   ],
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'VARAG - Digital Book Library & Vault',
       meta: [
